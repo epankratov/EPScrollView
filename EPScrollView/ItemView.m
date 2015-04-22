@@ -8,8 +8,6 @@
 
 #import "ItemView.h"
 #import "Global.h"
-#import "UIColor+Extra.h"
-#import "UILabel+Extra.h"
 
 NSString *const kDefaultFontName       = @"OpenSans";
 NSString *const kStringEmptyThumbnail  = @"bg";
@@ -46,7 +44,7 @@ const CGFloat kHeightDescriptionLabel  = 20.0;
 
 - (instancetype)initWithTitle:(NSString *)title andAdditionalTitle:(NSString *)additionalTitle
 {
-    self = [super init];
+    self = [super initWithFrame:CGRectZero];
     if (self) {
         // Create and add container
         _container = [[UIView alloc] initWithFrame:CGRectInset(self.bounds, kInsetHorizontal, kInsetVertical)];
@@ -63,17 +61,10 @@ const CGFloat kHeightDescriptionLabel  = 20.0;
         // Add images
         // Big image is the artwork made from random scene
         _image = [[UIImageView alloc] initWithImage:[ItemView defaultImage]];
-        CGFloat width  = _container.bounds.size.width + 2 * kInsetHorizontal;
-        CGFloat height = width * kPlayerWideProportion;
         [_image setClipsToBounds:NO];
-        [_image setFrame:CGRectMake(0 - kInsetHorizontal, kInsetHorizontal + kHeightMainLabel + kHeightDescriptionLabel, width, height)];
         [_container addSubview:_image];
         // Small image is a poster thumbnail
         _imageSmall = [[UIImageView alloc] initWithImage:[ItemView defaultImage]];
-        // Get the third part of the big image
-        width  = (_container.bounds.size.width - kInsetVertical * 2) / 3;
-        height = width * 4/3;
-        [_imageSmall setFrame:CGRectMake(kInsetVertical, _container.bounds.size.height - kInsetVertical - height, width, height)];
         _imageSmall.layer.cornerRadius = 3.0;
         _imageSmall.layer.borderWidth = 1.0;
         _imageSmall.layer.borderColor = [UIColor commonGrayColor].CGColor;
@@ -89,7 +80,7 @@ const CGFloat kHeightDescriptionLabel  = 20.0;
         [_labelMain setTextColor:[UIColor mainLabelColor]];
         [_labelMain adjustFontSizeToFit];
         [_container addSubview:_labelMain];
-        
+    
         _labelAdditionalInfo = [[UILabel alloc] initWithFrame:[self descriptionLabelRect]];
         [_labelAdditionalInfo setAdjustsFontSizeToFitWidth:YES];
         [_labelAdditionalInfo setBackgroundColor:[UIColor clearColor]];
@@ -109,7 +100,7 @@ const CGFloat kHeightDescriptionLabel  = 20.0;
         [_labelSynopsis setAdjustsFontSizeToFitWidth:NO];
         [_labelSynopsis setBackgroundColor:[UIColor clearColor]];
         [_labelSynopsis setFont:[UIFont fontWithName:kDefaultFontName size:isPad() ? kFontSizeSynopsis_Pad : kFontSizeSynopsis]];
-        [_labelSynopsis setText:@"LOADING..."];
+        [_labelSynopsis setText:@"Here will be shown some wide text description"];
         [_labelSynopsis setTextColor:[UIColor descriptionLabelColor]];
         [_scrollViewSynopsis addSubview:_labelSynopsis];
         // Clip to parent bounds
@@ -120,8 +111,22 @@ const CGFloat kHeightDescriptionLabel  = 20.0;
 
 - (void)layoutSubviews
 {
-    [_labelMain sizeToFit];
-    [_labelAdditionalInfo sizeToFit];
+    [_container setFrame:CGRectInset(self.bounds, kInsetHorizontal, kInsetVertical)];
+    CGFloat width  = _container.bounds.size.width + 2 * kInsetHorizontal;
+    CGFloat height = width * kPlayerWideProportion;
+    [_image setFrame:CGRectMake(0 - kInsetHorizontal, kInsetHorizontal + kHeightMainLabel + kHeightDescriptionLabel, width, height)];
+    // Get the third part of the big image
+    width  = (_container.bounds.size.width - kInsetVertical * 2) / 3;
+    height = width * 4/3;
+    [_imageSmall setFrame:CGRectMake(kInsetVertical, _container.bounds.size.height - kInsetVertical - height, width, height)];
+    // Labels
+    [_labelMain setFrame:[self mainLabelRect]];
+    [_labelMain setFont:[UIFont fontWithName:kDefaultFontName size:isPad() ? kFontSizeMainLabel_Pad : kFontSizeMainLabel]];
+    [_labelAdditionalInfo setFrame:[self descriptionLabelRect]];
+    [_labelAdditionalInfo setFont:[UIFont fontWithName:kDefaultFontName size:isPad() ? kFontSizeDescription_Pad : kFontSizeDescription]];
+    // Synopsis
+    [_scrollViewSynopsis setFrame:[self scrollViewRect]];
+    [_labelSynopsis setFrame:_scrollViewSynopsis.bounds];
 }
 
 #pragma mark - Private methods
