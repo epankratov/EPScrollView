@@ -101,12 +101,7 @@
 		442D71631AC9D8EF0002FE72 /* EPScrollView */ = {
 			isa = PBXGroup;
 			children = (
-				449768EA1AE7A61F00BD67D6 /* UILabel+Extra.h */,
-				449768EB1AE7A61F00BD67D6 /* UILabel+Extra.m */,
-				449768EC1AE7A61F00BD67D6 /* UIView+Extra.h */,
-				449768ED1AE7A61F00BD67D6 /* UIView+Extra.m */,
-				449768E71AE7A5EE00BD67D6 /* UIColor+Extra.h */,
-				449768E81AE7A5EE00BD67D6 /* UIColor+Extra.m */,
+				449768F71AE7AEC300BD67D6 /* Categories */,
 				44582A341ACF1176004825AE /* ItemView.h */,
 				44582A351ACF1176004825AE /* ItemView.m */,
 				442D718A1AC9D9960002FE72 /* EPScrollView.h */,
@@ -158,6 +153,19 @@
 				449768F41AE7AD7B00BD67D6 /* bg@2x.png */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		449768F71AE7AEC300BD67D6 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				449768EA1AE7A61F00BD67D6 /* UILabel+Extra.h */,
+				449768EB1AE7A61F00BD67D6 /* UILabel+Extra.m */,
+				449768EC1AE7A61F00BD67D6 /* UIView+Extra.h */,
+				449768ED1AE7A61F00BD67D6 /* UIView+Extra.m */,
+				449768E71AE7A5EE00BD67D6 /* UIColor+Extra.h */,
+				449768E81AE7A5EE00BD67D6 /* UIColor+Extra.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
