@@ -10,6 +10,8 @@
 #define EPScrollView_Global_h
 
 #import "AppDelegate.h"
+#import "UIColor+Extra.h"
+#import "UILabel+Extra.h"
 
 /**
 * Tags to return type of device
