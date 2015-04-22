@@ -38,5 +38,6 @@
 @optional
 
 - (NSUInteger)extendedScrollViewNumberOfColumns:(EPScrollView *)scrollView;
+- (NSUInteger)extendedScrollView:(EPScrollView *)scrollView heightForItem:(NSInteger)index;
 
 @end

@@ -8,7 +8,7 @@
 
 #import "EPScrollView.h"
 
-const CGFloat _defaultItemHeight    = 240;
+const CGFloat _defaultItemHeight    = 380;
 const CGFloat _defaultCapacity      = 10;
 
 @interface EPScrollView () {
@@ -26,6 +26,7 @@ const CGFloat _defaultCapacity      = 10;
     if (self) {
         _visibleViews        = [[NSMutableArray alloc] initWithCapacity:_defaultCapacity];
         _visibleViewsIndexes = [[NSMutableArray alloc] initWithCapacity:_defaultCapacity];
+        [self setBackgroundColor:[UIColor clearColor]];
         self.delegate = self;
     }
     return self;
@@ -48,7 +49,11 @@ const CGFloat _defaultCapacity      = 10;
 
 - (CGRect)rectForViewAtIndex:(NSInteger)index
 {
-    CGRect frame = CGRectMake(0, index * _defaultItemHeight, self.bounds.size.width, _defaultItemHeight);
+    CGFloat itemHeight = _defaultItemHeight;
+    if (self.dataSource && [self.dataSource respondsToSelector:@selector(extendedScrollView:heightForItem:)]) {
+        itemHeight = [self.dataSource extendedScrollView:self heightForItem:index];
+    }
+    CGRect frame = CGRectMake(0, index * itemHeight, self.bounds.size.width, itemHeight);
     return frame;
 }
 
