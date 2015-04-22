@@ -7,6 +7,7 @@
 //
 
 #import "MainViewController.h"
+#import "Global.h"
 
 @interface MainViewController () {
     NSArray *_items;
@@ -27,8 +28,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _items = [NSArray arrayWithObjects:@"Item0", @"Item1", @"Item2", @"Item3", @"Item4", @"Item5", @"Item6", @"Item7", @"Item8", @"Item9", @"Item10", nil];
     [self.scrollView setDataSource:self];
+    self.view.backgroundColor = [UIColor commonGrayColor];
+    if ([self.navigationController.navigationBar respondsToSelector:@selector(setBarTintColor:)]) {
+        [self.navigationController.navigationBar setBarTintColor:[UIColor navigationBarTintColor]];
+    }
+    else if ([self.navigationController.navigationBar respondsToSelector:@selector(setTintColor:)]) {
+        [self.navigationController.navigationBar setTintColor:[UIColor navigationBarTintColor]];
+    }
+
+    _items = [NSArray arrayWithObjects:@"Item0", @"Item1", @"Item2", @"Item3", @"Item4", @"Item5", @"Item6", @"Item7", @"Item8", @"Item9", @"Item10", nil];
     // Do any additional setup after loading the view, typically from a nib.
     [self.scrollView reloadData];
 }
@@ -49,11 +58,14 @@
     return _items.count;
 }
 
+- (NSUInteger)extendedScrollView:(EPScrollView *)scrollView heightForItem:(NSInteger)index
+{
+    return 380 + index * 10;
+}
+
 - (UIView *)extendedScrollView:(EPScrollView *)scrollView viewForItem:(NSInteger)index
 {
     ItemView *view = [[ItemView alloc] initWithTitle:[_items objectAtIndex:index] andAdditionalTitle:[_items objectAtIndex:index]];
-    view.layer.borderColor = [UIColor greenColor].CGColor;
-    view.layer.borderWidth = 1.0;
     return view;
 }
 
