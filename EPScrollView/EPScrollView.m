@@ -13,8 +13,11 @@ const CGFloat _defaultCapacity      = 10;
 
 @interface EPScrollView () {
     NSMutableArray *_visibleViews;
+    NSMutableArray *_viewsRect;
     NSMutableArray *_visibleViewsIndexes;
 }
+
+- (CGFloat)heightForViewAtIndex:(NSInteger)index;
 
 @end
 
@@ -25,9 +28,10 @@ const CGFloat _defaultCapacity      = 10;
     self = [super initWithFrame:frame];
     if (self) {
         _visibleViews        = [[NSMutableArray alloc] initWithCapacity:_defaultCapacity];
+        _viewsRect           = [[NSMutableArray alloc] initWithCapacity:_defaultCapacity];
         _visibleViewsIndexes = [[NSMutableArray alloc] initWithCapacity:_defaultCapacity];
         [self setBackgroundColor:[UIColor clearColor]];
-        self.delegate = self;
+        super.delegate = self;
     }
     return self;
 }
@@ -37,23 +41,24 @@ const CGFloat _defaultCapacity      = 10;
     if (self.dataSource) {
         NSUInteger viewsCount = [self.dataSource extendedScrollViewNumberOfItems:self];
         // Do something here
+        NSUInteger totalHeight = 0;
         for (NSUInteger i = 0; i < viewsCount; i++) {
             UIView *viewToAdd = [self.dataSource extendedScrollView:self viewForItem:i];
-            [viewToAdd setFrame:[self rectForViewAtIndex:i]];
+            CGFloat height = [self heightForViewAtIndex:i];
+            CGRect viewFrame = CGRectMake(0, totalHeight, self.bounds.size.width, height);
+            [viewToAdd setFrame:viewFrame];
+            [_viewsRect addObject:[NSValue valueWithCGRect:viewFrame]];
+            totalHeight += height;
             [self addSubview:viewToAdd];
             [_visibleViewsIndexes addObject:[NSNumber numberWithUnsignedLong:i]];
         }
-        self.contentSize = CGSizeMake(self.bounds.size.width, _defaultItemHeight * viewsCount);
+        self.contentSize = CGSizeMake(self.bounds.size.width, totalHeight);
     }
 }
 
 - (CGRect)rectForViewAtIndex:(NSInteger)index
 {
-    CGFloat itemHeight = _defaultItemHeight;
-    if (self.dataSource && [self.dataSource respondsToSelector:@selector(extendedScrollView:heightForItem:)]) {
-        itemHeight = [self.dataSource extendedScrollView:self heightForItem:index];
-    }
-    CGRect frame = CGRectMake(0, index * itemHeight, self.bounds.size.width, itemHeight);
+    CGRect frame = [[_viewsRect objectAtIndex:index] CGRectValue];
     return frame;
 }
 
@@ -78,6 +83,16 @@ const CGFloat _defaultCapacity      = 10;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     NSLog(@"The view has scrolled");
+}
+
+#pragma mark - Private methods
+
+- (CGFloat)heightForViewAtIndex:(NSInteger)index
+{
+    CGFloat itemHeight = _defaultItemHeight;
+    if (self.dataSource && [self.dataSource respondsToSelector:@selector(extendedScrollView:heightForItem:)])
+        itemHeight = [self.dataSource extendedScrollView:self heightForItem:index];
+    return itemHeight;
 }
 
 @end
