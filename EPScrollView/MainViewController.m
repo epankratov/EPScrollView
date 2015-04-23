@@ -8,9 +8,10 @@
 
 #import "MainViewController.h"
 #import "Global.h"
+#import "DataItem.h"
+#import "DataFabric.h"
 
 @interface MainViewController () {
-    NSArray *_items;
 }
 
 @end
@@ -37,7 +38,6 @@
         [self.navigationController.navigationBar setTintColor:[UIColor navigationBarTintColor]];
     }
 
-    _items = [NSArray arrayWithObjects:@"Item0", @"Item1", @"Item2", @"Item3", @"Item4", @"Item5", @"Item6", @"Item7", @"Item8", @"Item9", @"Item10", nil];
     // Do any additional setup after loading the view, typically from a nib.
     [self.scrollView reloadData];
 }
@@ -55,7 +55,7 @@
 
 - (NSUInteger)extendedScrollViewNumberOfItems:(EPScrollView *)scrollView
 {
-    return _items.count;
+    return [[DataFabric sharedInstance] availabelItems].count;
 }
 
 - (NSUInteger)extendedScrollView:(EPScrollView *)scrollView heightForItem:(NSInteger)index
@@ -65,7 +65,8 @@
 
 - (UIView *)extendedScrollView:(EPScrollView *)scrollView viewForItem:(NSInteger)index
 {
-    ItemView *view = [[ItemView alloc] initWithTitle:[_items objectAtIndex:index] andAdditionalTitle:[_items objectAtIndex:index]];
+    DataItem *item = [[[DataFabric sharedInstance] availabelItems] objectAtIndex:index];
+    ItemView *view = [[ItemView alloc] initWithTitle:item.title andAdditionalTitle:item.additionalTitle andSynopsis:item.synopsis];
     return view;
 }
 
