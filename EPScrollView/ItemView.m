@@ -42,7 +42,7 @@ const CGFloat kHeightDescriptionLabel  = 20.0;
 
 @implementation ItemView
 
-- (instancetype)initWithTitle:(NSString *)title andAdditionalTitle:(NSString *)additionalTitle
+- (instancetype)initWithTitle:(NSString *)title andAdditionalTitle:(NSString *)additionalTitle andSynopsis:(NSString *)synopsis
 {
     self = [super initWithFrame:CGRectZero];
     if (self) {
@@ -100,7 +100,7 @@ const CGFloat kHeightDescriptionLabel  = 20.0;
         [_labelSynopsis setAdjustsFontSizeToFitWidth:NO];
         [_labelSynopsis setBackgroundColor:[UIColor clearColor]];
         [_labelSynopsis setFont:[UIFont fontWithName:kDefaultFontName size:isPad() ? kFontSizeSynopsis_Pad : kFontSizeSynopsis]];
-        [_labelSynopsis setText:@"Here will be shown some wide text description"];
+        [_labelSynopsis setText:synopsis];
         [_labelSynopsis setTextColor:[UIColor descriptionLabelColor]];
         [_scrollViewSynopsis addSubview:_labelSynopsis];
         // Clip to parent bounds

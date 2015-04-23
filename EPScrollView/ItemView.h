@@ -12,6 +12,6 @@
 
 }
 
-- (instancetype)initWithTitle:(NSString *)title andAdditionalTitle:(NSString *)additionalTitle;
+- (instancetype)initWithTitle:(NSString *)title andAdditionalTitle:(NSString *)additionalTitle andSynopsis:(NSString *)synopsis;
 
 @end
