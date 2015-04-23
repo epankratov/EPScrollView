@@ -14,6 +14,8 @@
 		442D71721AC9D8EF0002FE72 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 442D71711AC9D8EF0002FE72 /* Images.xcassets */; };
 		442D71811AC9D8EF0002FE72 /* EPScrollViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 442D71801AC9D8EF0002FE72 /* EPScrollViewTests.m */; };
 		442D718C1AC9D9960002FE72 /* EPScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 442D718B1AC9D9960002FE72 /* EPScrollView.m */; };
+		4438F8741AE918A700864943 /* DataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4438F8731AE918A700864943 /* DataItem.m */; };
+		4438F8771AE918EF00864943 /* DataFabric.m in Sources */ = {isa = PBXBuildFile; fileRef = 4438F8761AE918EF00864943 /* DataFabric.m */; };
 		44582A361ACF1176004825AE /* ItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 44582A351ACF1176004825AE /* ItemView.m */; };
 		449768E91AE7A5EE00BD67D6 /* UIColor+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 449768E81AE7A5EE00BD67D6 /* UIColor+Extra.m */; };
 		449768EE1AE7A61F00BD67D6 /* UILabel+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 449768EB1AE7A61F00BD67D6 /* UILabel+Extra.m */; };
@@ -48,6 +50,10 @@
 		442D71801AC9D8EF0002FE72 /* EPScrollViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EPScrollViewTests.m; sourceTree = "<group>"; };
 		442D718A1AC9D9960002FE72 /* EPScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPScrollView.h; sourceTree = "<group>"; };
 		442D718B1AC9D9960002FE72 /* EPScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPScrollView.m; sourceTree = "<group>"; };
+		4438F8721AE918A700864943 /* DataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataItem.h; sourceTree = "<group>"; };
+		4438F8731AE918A700864943 /* DataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataItem.m; sourceTree = "<group>"; };
+		4438F8751AE918EF00864943 /* DataFabric.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataFabric.h; sourceTree = "<group>"; };
+		4438F8761AE918EF00864943 /* DataFabric.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataFabric.m; sourceTree = "<group>"; };
 		44582A341ACF1176004825AE /* ItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemView.h; sourceTree = "<group>"; };
 		44582A351ACF1176004825AE /* ItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemView.m; sourceTree = "<group>"; };
 		449768E61AE7A3B100BD67D6 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
@@ -101,6 +107,7 @@
 		442D71631AC9D8EF0002FE72 /* EPScrollView */ = {
 			isa = PBXGroup;
 			children = (
+				4438F8711AE9184A00864943 /* Data models */,
 				449768F71AE7AEC300BD67D6 /* Categories */,
 				44582A341ACF1176004825AE /* ItemView.h */,
 				44582A351ACF1176004825AE /* ItemView.m */,
@@ -144,6 +151,17 @@
 				442D717F1AC9D8EF0002FE72 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4438F8711AE9184A00864943 /* Data models */ = {
+			isa = PBXGroup;
+			children = (
+				4438F8721AE918A700864943 /* DataItem.h */,
+				4438F8731AE918A700864943 /* DataItem.m */,
+				4438F8751AE918EF00864943 /* DataFabric.h */,
+				4438F8761AE918EF00864943 /* DataFabric.m */,
+			);
+			name = "Data models";
 			sourceTree = "<group>";
 		};
 		449768F21AE7AD6F00BD67D6 /* Resources */ = {
@@ -270,7 +288,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4438F8771AE918EF00864943 /* DataFabric.m in Sources */,
 				449768EE1AE7A61F00BD67D6 /* UILabel+Extra.m in Sources */,
+				4438F8741AE918A700864943 /* DataItem.m in Sources */,
 				449768EF1AE7A61F00BD67D6 /* UIView+Extra.m in Sources */,
 				449768E91AE7A5EE00BD67D6 /* UIColor+Extra.m in Sources */,
 				44582A361ACF1176004825AE /* ItemView.m in Sources */,
