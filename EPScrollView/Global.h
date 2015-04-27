@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "UIColor+Extra.h"
 #import "UILabel+Extra.h"
+#import "UIImage+Extra.h"
 
 /**
 * Tags to return type of device
@@ -87,5 +88,10 @@ CG_INLINE BOOL isPhone()
 #define RGB_FLOAT_COLOR(r, g, b)                    RGBA_FLOAT_COLOR(r, g, b, 1.0)
 #define HEXA_COLOR(c, a)                            [UIColor colorWithRed:(((c >> 16) & 0xFF) / 255.0) green:(((c >> 8) & 0xFF) / 255.0) blue:(((c) & 0xFF)/ 255.0) alpha:a]
 #define HEX_COLOR(c)                                HEXA_COLOR(c, 1.0)
+
+/**
+ * Global network constraints
+ */
+#define kNetworkTimeout                             30
 
 #endif
