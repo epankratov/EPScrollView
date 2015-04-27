@@ -13,6 +13,7 @@ static DataFabric *_fabricInstance;
 
 @interface DataFabric () {
     NSMutableArray *_availableItems;
+    NSArray *_imageURLs;
 }
 
 - (instancetype)init;
@@ -34,9 +35,11 @@ static DataFabric *_fabricInstance;
 
 - (void)createNewItems
 {
-    NSInteger count = arc4random() % 10;
+    NSInteger count = arc4random() % 5 + 5;
     for (NSInteger i = 0; i < count; i++) {
         DataItem *item = [[DataItem alloc] initWithNumber:i];
+        NSInteger number = arc4random() % 10;
+        item.imageURL = [_imageURLs objectAtIndex:number];
         [_availableItems addObject:item];
     }
 }
@@ -58,6 +61,17 @@ static DataFabric *_fabricInstance;
     self = [super init];
     if (self != nil) {
         _availableItems = [[NSMutableArray alloc] init];
+        _imageURLs = [[NSArray alloc] initWithObjects:@"http://image.api.viewster.com/movies/1056-12724-000/image?width=%lu&height=%lu",
+                      @"http://image.api.viewster.com/movies/1056-12631-000/image?width=%lu&height=%lu",
+                      @"http://image.api.viewster.com/movies/1056-10212-000/image?width=%lu&height=%lu",
+                      @"http://image.api.viewster.com/movies/1112-13333-000/image?width=%lu&height=%lu",
+                      @"http://image.api.viewster.com/movies/1056-10229-000/image?width=%lu&height=%lu",
+                      @"http://image.api.viewster.com/movies/1056-10208-000/image?width=%lu&height=%lu",
+                      @"http://image.api.viewster.com/movies/1056-12750-000/image?width=%lu&height=%lu",
+                      @"http://image.api.viewster.com/movies/1056-10229-000/image?width=%lu&height=%lu",
+                      @"http://image.api.viewster.com/movies/1056-12686-000/image?width=%lu&height=%lu",
+                      @"http://image.api.viewster.com/movies/1056-12567-000/image?width=%lu&height=%lu",
+                      nil];
         [self createNewItems];
     }
     return self;
