@@ -18,7 +18,8 @@
 @property (nonatomic, assign) id <EPScrollViewDataSource> dataSource;
 @property (nonatomic) CGFloat itemHeight;
 
-- (instancetype)initWithFrame:(CGRect)frame;
+- (id)initWithFrame:(CGRect)frame;
+- (id)initWithCoder:(NSCoder *)aDecoder;
 - (void)reloadData;
 - (CGRect)rectForViewAtIndex:(NSInteger)index;
 // returns nil if cell is not visible or index path is out of range

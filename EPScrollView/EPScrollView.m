@@ -7,6 +7,7 @@
 //
 
 #import "EPScrollView.h"
+#import "Global.h"
 
 const CGFloat _defaultItemHeight    = 380;
 const CGFloat _defaultCapacity      = 10;
@@ -18,20 +19,26 @@ const CGFloat _defaultCapacity      = 10;
 }
 
 - (CGFloat)heightForViewAtIndex:(NSInteger)index;
+- (void)initCommon;
 
 @end
 
 @implementation EPScrollView
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _visibleViews        = [[NSMutableArray alloc] initWithCapacity:_defaultCapacity];
-        _viewsRect           = [[NSMutableArray alloc] initWithCapacity:_defaultCapacity];
-        _visibleViewsIndexes = [[NSMutableArray alloc] initWithCapacity:_defaultCapacity];
-        [self setBackgroundColor:[UIColor clearColor]];
-        super.delegate = self;
+        [self initCommon];
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    self = [super initWithCoder:decoder];
+    if (self) {
+        [self initCommon];
     }
     return self;
 }
@@ -82,7 +89,7 @@ const CGFloat _defaultCapacity      = 10;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSLog(@"The view has scrolled");
+    VLog(@"The view has scrolled");
 }
 
 #pragma mark - Private methods
@@ -93,6 +100,16 @@ const CGFloat _defaultCapacity      = 10;
     if (self.dataSource && [self.dataSource respondsToSelector:@selector(extendedScrollView:heightForItem:)])
         itemHeight = [self.dataSource extendedScrollView:self heightForItem:index];
     return itemHeight;
+}
+
+- (void)initCommon
+{
+    [self setBackgroundColor:[UIColor clearColor]];
+    [self setScrollsToTop:YES];
+    _visibleViews        = [[NSMutableArray alloc] initWithCapacity:_defaultCapacity];
+    _viewsRect           = [[NSMutableArray alloc] initWithCapacity:_defaultCapacity];
+    _visibleViewsIndexes = [[NSMutableArray alloc] initWithCapacity:_defaultCapacity];
+    [super setDelegate:self];
 }
 
 @end
