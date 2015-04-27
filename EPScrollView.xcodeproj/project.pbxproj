@@ -113,13 +113,10 @@
 		442D71631AC9D8EF0002FE72 /* EPScrollView */ = {
 			isa = PBXGroup;
 			children = (
-				44ADE0671AEE501F00E8E7BD /* Utils */,
 				4438F8711AE9184A00864943 /* Data models */,
+				44ADE0711AEE7AFF00E8E7BD /* Controls */,
+				44ADE0671AEE501F00E8E7BD /* Utils */,
 				449768F71AE7AEC300BD67D6 /* Categories */,
-				44582A341ACF1176004825AE /* ItemView.h */,
-				44582A351ACF1176004825AE /* ItemView.m */,
-				442D718A1AC9D9960002FE72 /* EPScrollView.h */,
-				442D718B1AC9D9960002FE72 /* EPScrollView.m */,
 				442D71681AC9D8EF0002FE72 /* AppDelegate.h */,
 				442D71691AC9D8EF0002FE72 /* AppDelegate.m */,
 				442D716B1AC9D8EF0002FE72 /* MainViewController.h */,
@@ -202,6 +199,17 @@
 				44ADE0691AEE502B00E8E7BD /* ImageDownloader.m */,
 			);
 			name = Utils;
+			sourceTree = "<group>";
+		};
+		44ADE0711AEE7AFF00E8E7BD /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				44582A341ACF1176004825AE /* ItemView.h */,
+				44582A351ACF1176004825AE /* ItemView.m */,
+				442D718A1AC9D9960002FE72 /* EPScrollView.h */,
+				442D718B1AC9D9960002FE72 /* EPScrollView.m */,
+			);
+			name = Controls;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
