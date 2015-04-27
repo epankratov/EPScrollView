@@ -31,12 +31,16 @@
     [super viewDidLoad];
     [self.scrollView setDataSource:self];
     self.view.backgroundColor = [UIColor commonGrayColor];
+    [self.navigationController.navigationBar setTranslucent:NO];
     if ([self.navigationController.navigationBar respondsToSelector:@selector(setBarTintColor:)]) {
         [self.navigationController.navigationBar setBarTintColor:[UIColor navigationBarTintColor]];
     }
     else if ([self.navigationController.navigationBar respondsToSelector:@selector(setTintColor:)]) {
         [self.navigationController.navigationBar setTintColor:[UIColor navigationBarTintColor]];
     }
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapOnNavbar)];
+    gestureRecognizer.numberOfTapsRequired = 1;
+    [self.navigationController.navigationBar addGestureRecognizer:gestureRecognizer];
 
     // Do any additional setup after loading the view, typically from a nib.
     [self.scrollView reloadData];
@@ -53,6 +57,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - User interactions
+
+- (void)handleTapOnNavbar
+{
+    [self.scrollView setContentOffset:CGPointZero animated:YES];
+}
+
+#pragma mark - EPScrollViewDataSource methods
+
 - (NSUInteger)extendedScrollViewNumberOfItems:(EPScrollView *)scrollView
 {
     return [[DataFabric sharedInstance] availabelItems].count;
@@ -63,10 +76,15 @@
     return 380 + index * 10;
 }
 
+- (NSUInteger)extendedScrollViewNumberOfColumns:(EPScrollView *)scrollView
+{
+    return isPad() ? 2 : 1;
+}
+
 - (UIView *)extendedScrollView:(EPScrollView *)scrollView viewForItem:(NSInteger)index
 {
     DataItem *item = [[[DataFabric sharedInstance] availabelItems] objectAtIndex:index];
-    ItemView *view = [[ItemView alloc] initWithTitle:item.title andAdditionalTitle:item.additionalTitle andSynopsis:item.synopsis];
+    ItemView *view = [[ItemView alloc] initWithDataItem:item];
     return view;
 }
 
