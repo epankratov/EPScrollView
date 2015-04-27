@@ -8,6 +8,7 @@
 
 #import "ItemView.h"
 #import "Global.h"
+#import "ImageDownloader.h"
 
 NSString *const kDefaultFontName       = @"OpenSans";
 NSString *const kStringEmptyThumbnail  = @"bg";
@@ -42,10 +43,11 @@ const CGFloat kHeightDescriptionLabel  = 20.0;
 
 @implementation ItemView
 
-- (instancetype)initWithTitle:(NSString *)title andAdditionalTitle:(NSString *)additionalTitle andSynopsis:(NSString *)synopsis
+- (instancetype)initWithDataItem:(DataItem *)item
 {
     self = [super initWithFrame:CGRectZero];
     if (self) {
+        self.dataItem = item;
         // Create and add container
         _container = [[UIView alloc] initWithFrame:CGRectInset(self.bounds, kInsetHorizontal, kInsetVertical)];
         [_container setClipsToBounds:isPad()];
@@ -76,7 +78,7 @@ const CGFloat kHeightDescriptionLabel  = 20.0;
         [_labelMain setAdjustsFontSizeToFitWidth:YES];
         [_labelMain setBackgroundColor:[UIColor clearColor]];
         [_labelMain setFont:[UIFont fontWithName:kDefaultFontName size:isPad() ? kFontSizeMainLabel_Pad : kFontSizeMainLabel]];
-        [_labelMain setText:title];
+        [_labelMain setText:self.dataItem.title];
         [_labelMain setTextColor:[UIColor mainLabelColor]];
         [_labelMain adjustFontSizeToFit];
         [_container addSubview:_labelMain];
@@ -85,7 +87,7 @@ const CGFloat kHeightDescriptionLabel  = 20.0;
         [_labelAdditionalInfo setAdjustsFontSizeToFitWidth:YES];
         [_labelAdditionalInfo setBackgroundColor:[UIColor clearColor]];
         [_labelAdditionalInfo setFont:[UIFont fontWithName:kDefaultFontName size:isPad() ? kFontSizeDescription_Pad : kFontSizeDescription]];
-        [_labelAdditionalInfo setText:additionalTitle];
+        [_labelAdditionalInfo setText:self.dataItem.additionalTitle];
         [_labelAdditionalInfo setTextColor:[UIColor descriptionLabelColor]];
         [_labelAdditionalInfo adjustFontSizeToFit];
         [_container addSubview:_labelAdditionalInfo];
@@ -100,7 +102,7 @@ const CGFloat kHeightDescriptionLabel  = 20.0;
         [_labelSynopsis setAdjustsFontSizeToFitWidth:NO];
         [_labelSynopsis setBackgroundColor:[UIColor clearColor]];
         [_labelSynopsis setFont:[UIFont fontWithName:kDefaultFontName size:isPad() ? kFontSizeSynopsis_Pad : kFontSizeSynopsis]];
-        [_labelSynopsis setText:synopsis];
+        [_labelSynopsis setText:self.dataItem.synopsis];
         [_labelSynopsis setTextColor:[UIColor descriptionLabelColor]];
         [_scrollViewSynopsis addSubview:_labelSynopsis];
         // Clip to parent bounds
@@ -127,6 +129,30 @@ const CGFloat kHeightDescriptionLabel  = 20.0;
     // Synopsis
     [_scrollViewSynopsis setFrame:[self scrollViewRect]];
     [_labelSynopsis setFrame:_scrollViewSynopsis.bounds];
+    // Picture
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData *picture = [[ImageDownloader sharedInstance] downloadPictureDataByUrlFormat:self.dataItem.imageURL andWidth:_image.frame.size.width andHeight:_image.frame.size.height];
+        if (picture != nil) {
+            UIImage *tempImage = [UIImage imageWithData:picture];
+            if (tempImage) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [tempImage crossFadeToImageView:_image];
+                });
+            }
+        }
+    });
+    // Thumbnail
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData *thumbnail = [[ImageDownloader sharedInstance] downloadPictureDataByUrlFormat:self.dataItem.imageURL andWidth:_imageSmall.frame.size.width andHeight:_imageSmall.frame.size.height];
+        if (thumbnail != nil) {
+            UIImage *tempImage = [UIImage imageWithData:thumbnail];
+            if (tempImage) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [tempImage crossFadeToImageView:_imageSmall];
+                });
+            }
+        }
+    });
 }
 
 #pragma mark - Private methods
