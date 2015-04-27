@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DataItem.h"
 
 @interface ItemView : UIView {
 
 }
 
-- (instancetype)initWithTitle:(NSString *)title andAdditionalTitle:(NSString *)additionalTitle andSynopsis:(NSString *)synopsis;
+@property (nonatomic, strong) DataItem *dataItem;
+
+- (instancetype)initWithDataItem:(DataItem *)item;
 
 @end
