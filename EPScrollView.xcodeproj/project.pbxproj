@@ -23,6 +23,8 @@
 		449768F11AE7AC2300BD67D6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 449768F01AE7AC2300BD67D6 /* Default-568h@2x.png */; };
 		449768F51AE7AD7B00BD67D6 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 449768F31AE7AD7B00BD67D6 /* bg.png */; };
 		449768F61AE7AD7B00BD67D6 /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 449768F41AE7AD7B00BD67D6 /* bg@2x.png */; };
+		44ADE06A1AEE502B00E8E7BD /* ImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 44ADE0691AEE502B00E8E7BD /* ImageDownloader.m */; };
+		44ADE06D1AEE526300E8E7BD /* UIImage+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 44ADE06C1AEE526300E8E7BD /* UIImage+Extra.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,10 @@
 		449768F01AE7AC2300BD67D6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		449768F31AE7AD7B00BD67D6 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bg.png; path = Resources/bg.png; sourceTree = "<group>"; };
 		449768F41AE7AD7B00BD67D6 /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bg@2x.png"; path = "Resources/bg@2x.png"; sourceTree = "<group>"; };
+		44ADE0681AEE502B00E8E7BD /* ImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDownloader.h; sourceTree = "<group>"; };
+		44ADE0691AEE502B00E8E7BD /* ImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDownloader.m; sourceTree = "<group>"; };
+		44ADE06B1AEE526300E8E7BD /* UIImage+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extra.h"; sourceTree = "<group>"; };
+		44ADE06C1AEE526300E8E7BD /* UIImage+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extra.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +113,7 @@
 		442D71631AC9D8EF0002FE72 /* EPScrollView */ = {
 			isa = PBXGroup;
 			children = (
+				44ADE0671AEE501F00E8E7BD /* Utils */,
 				4438F8711AE9184A00864943 /* Data models */,
 				449768F71AE7AEC300BD67D6 /* Categories */,
 				44582A341ACF1176004825AE /* ItemView.h */,
@@ -182,8 +189,19 @@
 				449768ED1AE7A61F00BD67D6 /* UIView+Extra.m */,
 				449768E71AE7A5EE00BD67D6 /* UIColor+Extra.h */,
 				449768E81AE7A5EE00BD67D6 /* UIColor+Extra.m */,
+				44ADE06B1AEE526300E8E7BD /* UIImage+Extra.h */,
+				44ADE06C1AEE526300E8E7BD /* UIImage+Extra.m */,
 			);
 			name = Categories;
+			sourceTree = "<group>";
+		};
+		44ADE0671AEE501F00E8E7BD /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				44ADE0681AEE502B00E8E7BD /* ImageDownloader.h */,
+				44ADE0691AEE502B00E8E7BD /* ImageDownloader.m */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -289,6 +307,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4438F8771AE918EF00864943 /* DataFabric.m in Sources */,
+				44ADE06A1AEE502B00E8E7BD /* ImageDownloader.m in Sources */,
+				44ADE06D1AEE526300E8E7BD /* UIImage+Extra.m in Sources */,
 				449768EE1AE7A61F00BD67D6 /* UILabel+Extra.m in Sources */,
 				4438F8741AE918A700864943 /* DataItem.m in Sources */,
 				449768EF1AE7A61F00BD67D6 /* UIView+Extra.m in Sources */,
