@@ -14,6 +14,7 @@
 + (UIColor *)barTintColor;
 + (UIColor *)genresYellowColor;
 + (UIColor *)navigationBarTintColor;
++ (UIColor *)navigationButtonsColor;
 + (UIColor *)splashLabelColor;
 + (UIColor *)mainLabelColor;
 + (UIColor *)descriptionLabelColor;

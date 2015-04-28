@@ -28,7 +28,12 @@
 
 + (UIColor *)navigationBarTintColor
 {
-    return RGBA_COLOR(0, 0, 0, 0);
+    return RGBA_COLOR(40, 60, 100, 1.0);
+}
+
++ (UIColor *)navigationButtonsColor
+{
+    return RGBA_COLOR(80, 120, 200, 1.0);
 }
 
 + (UIColor *)splashLabelColor
