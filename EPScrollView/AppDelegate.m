@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "Global.h"
 
 @interface AppDelegate ()
 
@@ -16,8 +17,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // Status bar
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    // Override point for customization after application launch.
     return YES;
 }
 
