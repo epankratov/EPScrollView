@@ -45,6 +45,7 @@ const CGFloat _defaultCapacity      = 10;
 
 - (void)reloadData
 {
+    [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     if (self.dataSource) {
         NSUInteger viewsCount = [self.dataSource extendedScrollViewNumberOfItems:self];
         // Do something here
@@ -70,8 +71,10 @@ const CGFloat _defaultCapacity      = 10;
 }
 
 // returns nil if cell is not visible or index is out of range
-- (UIView *)itemViewForIndex:(NSInteger *)index
+- (UIView *)itemViewForIndex:(NSInteger)index
 {
+//    if ([_visibleViewsIndexes containsObject:[NSNumber numberWithUnsignedLong:index]])
+//        return [_visibleViews objectAtIndex:index];
     return nil;
 }
 
@@ -80,7 +83,7 @@ const CGFloat _defaultCapacity      = 10;
     return _visibleViews;
 }
 
-- (NSArray *)indexesForVisibleViews
+- (NSArray *)visibleViewsIndexes
 {
     return _visibleViewsIndexes;
 }

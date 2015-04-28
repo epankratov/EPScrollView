@@ -23,9 +23,9 @@
 - (void)reloadData;
 - (CGRect)rectForViewAtIndex:(NSInteger)index;
 // returns nil if cell is not visible or index path is out of range
-- (UIView *)itemViewForIndex:(NSInteger *)index;
+- (UIView *)itemViewForIndex:(NSInteger)index;
 - (NSArray *)visibleViews;
-- (NSArray *)indexesForVisibleViews;
+- (NSArray *)visibleViewsIndexes;
 
 @end
 
