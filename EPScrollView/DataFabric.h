@@ -14,6 +14,7 @@
 
 + (DataFabric *)sharedInstance;
 - (void)createNewItems;
+- (void)emptyItems;
 - (NSArray *)availabelItems;
 
 @end

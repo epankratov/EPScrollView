@@ -35,7 +35,7 @@ static DataFabric *_fabricInstance;
 
 - (void)createNewItems
 {
-    NSInteger count = arc4random() % 5 + 5;
+    NSInteger count = arc4random() % 46 + 5;
     for (NSInteger i = 0; i < count; i++) {
         DataItem *item = [[DataItem alloc] initWithNumber:i];
         NSInteger number = arc4random() % 10;
