@@ -14,6 +14,9 @@
 @interface MainViewController () {
 }
 
+- (void)handleTapOnNavbar;
+- (IBAction)rightButtonTap:(id)sender;
+
 @end
 
 @implementation MainViewController
@@ -29,20 +32,37 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.scrollView setDataSource:self];
     self.view.backgroundColor = [UIColor commonGrayColor];
-    [self.navigationController.navigationBar setTranslucent:NO];
+
+    // Exclude bounds of the navigation bar
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
+        [self setEdgesForExtendedLayout:UIRectEdgeNone];
+    }
+
+    // Customize navigation bar
+    [self.navigationItem setTitle:@"Extended scroll view"];
+    NSDictionary *navbarTitleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                               [UIColor commonGrayColor], UITextAttributeTextColor,
+                                               [UIColor navigationButtonsColor], UITextAttributeTextShadowColor,
+                                               [NSValue valueWithUIOffset:UIOffsetMake(0, 1)], UITextAttributeTextShadowOffset, nil];
+    [self.navigationController.navigationBar setTitleTextAttributes:navbarTitleTextAttributes];
+    [[UINavigationBar appearance] setTranslucent:NO];
     if ([self.navigationController.navigationBar respondsToSelector:@selector(setBarTintColor:)]) {
         [self.navigationController.navigationBar setBarTintColor:[UIColor navigationBarTintColor]];
     }
-    else if ([self.navigationController.navigationBar respondsToSelector:@selector(setTintColor:)]) {
-        [self.navigationController.navigationBar setTintColor:[UIColor navigationBarTintColor]];
+    if ([self.navigationController.navigationBar respondsToSelector:@selector(setTintColor:)]) {
+        [self.navigationController.navigationBar setTintColor:[UIColor navigationButtonsColor]];
     }
+    // Add gesture recognizer
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapOnNavbar)];
     gestureRecognizer.numberOfTapsRequired = 1;
     [self.navigationController.navigationBar addGestureRecognizer:gestureRecognizer];
+    // Set navigation buttons
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(rightButtonTap:)];
+    self.navigationItem.rightBarButtonItem = rightButton;
 
     // Do any additional setup after loading the view, typically from a nib.
+    [self.scrollView setDataSource:self];
     [self.scrollView reloadData];
 }
 
@@ -64,6 +84,13 @@
     [self.scrollView setContentOffset:CGPointZero animated:YES];
 }
 
+- (IBAction)rightButtonTap:(id)sender
+{
+    [[DataFabric sharedInstance] emptyItems];
+    [[DataFabric sharedInstance] createNewItems];
+    [self.scrollView reloadData];
+}
+
 #pragma mark - EPScrollViewDataSource methods
 
 - (NSUInteger)extendedScrollViewNumberOfItems:(EPScrollView *)scrollView
@@ -73,7 +100,7 @@
 
 - (NSUInteger)extendedScrollView:(EPScrollView *)scrollView heightForItem:(NSInteger)index
 {
-    return 380 + index * 10;
+    return 380;//isPad() ? 380 : 380 + index * 10;
 }
 
 - (NSUInteger)extendedScrollViewNumberOfColumns:(EPScrollView *)scrollView
