@@ -131,7 +131,7 @@ const CGFloat kHeightDescriptionLabel  = 20.0;
     [_labelSynopsis setFrame:_scrollViewSynopsis.bounds];
     // Picture
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSData *picture = [[ImageDownloader sharedInstance] downloadPictureDataByUrlFormat:self.dataItem.imageURL andWidth:_image.frame.size.width andHeight:_image.frame.size.height];
+        NSData *picture = [[ImageDownloader sharedInstance] downloadPictureDataByImageOrigin:self.dataItem.imageOrigin andWidth:_image.frame.size.width andHeight:_image.frame.size.height];
         if (picture != nil) {
             UIImage *tempImage = [UIImage imageWithData:picture];
             if (tempImage) {
@@ -143,7 +143,7 @@ const CGFloat kHeightDescriptionLabel  = 20.0;
     });
     // Thumbnail
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSData *thumbnail = [[ImageDownloader sharedInstance] downloadPictureDataByUrlFormat:self.dataItem.imageURL andWidth:_imageSmall.frame.size.width andHeight:_imageSmall.frame.size.height];
+        NSData *thumbnail = [[ImageDownloader sharedInstance] downloadPictureDataByImageOrigin:self.dataItem.imageOrigin andWidth:_imageSmall.frame.size.width andHeight:_imageSmall.frame.size.height];
         if (thumbnail != nil) {
             UIImage *tempImage = [UIImage imageWithData:thumbnail];
             if (tempImage) {
