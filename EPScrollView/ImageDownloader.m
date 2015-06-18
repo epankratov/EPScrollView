@@ -62,9 +62,9 @@ static ImageDownloader *_sharedImageDownloader;
     return receivedData;
 }
 
-- (NSData *)downloadPictureDataByUrlFormat:(NSString *)urlFormat andWidth:(NSInteger)width andHeight:(NSInteger)height
+- (NSData *)downloadPictureDataByImageOrigin:(NSString *)imageOrigin andWidth:(NSInteger)width andHeight:(NSInteger)height
 {
-    return [self downloadPictureDataWithURL:[NSString stringWithFormat:urlFormat, width, height]];
+    return [self downloadPictureDataWithURL:[NSString stringWithFormat:@"http://image.api.viewster.com/movies/%@/image?width=%lu&height=%lu", imageOrigin, (long)width, (long)height]];
 }
 
 @end

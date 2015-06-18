@@ -16,6 +16,6 @@
 
 // Quick synchronous download method intended to download data
 - (NSData *)downloadPictureDataWithURL:(NSString *)urlString;
-- (NSData *)downloadPictureDataByUrlFormat:(NSString *)urlFormat andWidth:(NSInteger)width andHeight:(NSInteger)height;
+- (NSData *)downloadPictureDataByImageOrigin:(NSString *)imageOrigin andWidth:(NSInteger)width andHeight:(NSInteger)height;
 
 @end
