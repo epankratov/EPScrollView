@@ -13,7 +13,7 @@ static DataFabric *_fabricInstance;
 
 @interface DataFabric () {
     NSMutableArray *_availableItems;
-    NSArray *_imageURLs;
+    NSArray *_movieOrigins;
 }
 
 - (instancetype)init;
@@ -38,8 +38,9 @@ static DataFabric *_fabricInstance;
     NSInteger count = arc4random() % 46 + 5;
     for (NSInteger i = 0; i < count; i++) {
         DataItem *item = [[DataItem alloc] initWithNumber:i];
-        NSInteger number = arc4random() % 10;
-        item.imageURL = [_imageURLs objectAtIndex:number];
+        NSInteger count = _movieOrigins.count == 0 ? 10 : _movieOrigins.count;
+        NSInteger number = arc4random() % count;
+        item.imageOrigin = [_movieOrigins objectAtIndex:number];
         [_availableItems addObject:item];
     }
 }
@@ -61,17 +62,23 @@ static DataFabric *_fabricInstance;
     self = [super init];
     if (self != nil) {
         _availableItems = [[NSMutableArray alloc] init];
-        _imageURLs = [[NSArray alloc] initWithObjects:@"http://image.api.viewster.com/movies/1056-12724-000/image?width=%lu&height=%lu",
-                      @"http://image.api.viewster.com/movies/1056-12631-000/image?width=%lu&height=%lu",
-                      @"http://image.api.viewster.com/movies/1056-10212-000/image?width=%lu&height=%lu",
-                      @"http://image.api.viewster.com/movies/1112-13333-000/image?width=%lu&height=%lu",
-                      @"http://image.api.viewster.com/movies/1056-10229-000/image?width=%lu&height=%lu",
-                      @"http://image.api.viewster.com/movies/1056-10208-000/image?width=%lu&height=%lu",
-                      @"http://image.api.viewster.com/movies/1056-12750-000/image?width=%lu&height=%lu",
-                      @"http://image.api.viewster.com/movies/1056-10229-000/image?width=%lu&height=%lu",
-                      @"http://image.api.viewster.com/movies/1056-12686-000/image?width=%lu&height=%lu",
-                      @"http://image.api.viewster.com/movies/1056-12567-000/image?width=%lu&height=%lu",
-                      nil];
+        _movieOrigins = [[NSArray alloc] initWithObjects:@"1056-12565-000",
+                         @"1056-12631-000",
+                         @"1056-12622-000",
+                         @"1056-12620-000",
+                         @"1056-10216-000",
+                         @"1050-10403-000",
+                         @"1050-10528-000",
+                         @"1056-10203-000",
+                         @"1051-10129-000",
+                         @"1056-12743-000",
+                         @"1050-10456-000",
+                         @"1140-12792-000",
+                         @"1056-12739-000",
+                         @"1050-10511-000",
+                         @"1056-12680-000",
+                         @"1140-11803-000",
+                         nil];
         [self createNewItems];
     }
     return self;
