@@ -15,7 +15,7 @@
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *additionalTitle;
 @property (nonatomic, strong) NSString *synopsis;
-@property (nonatomic, strong) NSString *imageURL;
+@property (nonatomic, strong) NSString *imageOrigin;
 
 - (instancetype)initWithNumber:(NSInteger)number;
 
