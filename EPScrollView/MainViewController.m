@@ -100,7 +100,7 @@
 
 - (NSUInteger)extendedScrollView:(EPScrollView *)scrollView heightForItem:(NSInteger)index
 {
-    return 380;//isPad() ? 380 : 380 + index * 10;
+    return isPad() ? 400 : 380;//380 + index * 10;
 }
 
 - (NSUInteger)extendedScrollViewNumberOfColumns:(EPScrollView *)scrollView
