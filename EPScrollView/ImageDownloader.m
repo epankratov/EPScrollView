@@ -11,7 +11,9 @@
 
 static ImageDownloader *_sharedImageDownloader;
 
-@interface ImageDownloader ()
+@interface ImageDownloader () {
+    NSCache *_imagesCache;
+}
 
 - (id)init;
 
@@ -36,29 +38,38 @@ static ImageDownloader *_sharedImageDownloader;
 {
     self = [super init];
     if (self != nil) {
+        _imagesCache = [[NSCache alloc] init];
     }
     return self;
 }
 
 - (NSData *)downloadPictureDataWithURL:(NSString *)urlString
 {
+    NSData *receivedData = nil;
     // Send synchronous GET query with given URL
-    NSError *err = nil;
-    NSURLResponse *response = nil;
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:kNetworkTimeout];
-    NSData *receivedData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
-    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-    if ([httpResponse statusCode] != 200) {
-        // Catch an error
-        if ([err localizedDescription])
-            VLog(@"DEBUG: URL %@ ; HTTP error: %@", url, [err localizedDescription]);
-        else {
-            VLog(@"DEBUG: URL %@ ; HTTP status code: %ld", url, (long)[httpResponse statusCode]);
+    if ([_imagesCache objectForKey:urlString]) {
+        VLog(@"DEBUG: object found in cache: %@", urlString);
+        receivedData = [_imagesCache objectForKey:urlString];
+    } else {
+        NSError *err = nil;
+        NSURLResponse *response = nil;
+        NSURL *url = [NSURL URLWithString:urlString];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:kNetworkTimeout];
+        receivedData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        if ([httpResponse statusCode] != 200) {
+            // Catch an error
+            if ([err localizedDescription])
+                VLog(@"DEBUG: URL %@ ; HTTP error: %@", url, [err localizedDescription]);
+            else {
+                VLog(@"DEBUG: URL %@ ; HTTP status code: %ld", url, (long)[httpResponse statusCode]);
+            }
+            receivedData = nil;
+        } else {
+            [_imagesCache setObject:receivedData forKey:urlString];
+            VLog(@"DEBUG: received picture for URL %@", urlString);
         }
-        receivedData = nil;
     }
-    
     return receivedData;
 }
 
