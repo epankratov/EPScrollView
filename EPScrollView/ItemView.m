@@ -35,6 +35,7 @@ const CGFloat kHeightDescriptionLabel  = 20.0;
     UILabel *_labelSynopsis;
 }
 
+- (void)downloadImageForView:(UIImageView *)imageView withTempImageName:(NSString *)tempImageName;
 + (UIImage *)defaultImage;
 - (CGRect)mainLabelRect;
 - (CGRect)descriptionLabelRect;
@@ -129,33 +130,34 @@ const CGFloat kHeightDescriptionLabel  = 20.0;
     // Synopsis
     [_scrollViewSynopsis setFrame:[self scrollViewRect]];
     [_labelSynopsis setFrame:_scrollViewSynopsis.bounds];
+
     // Picture
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSData *picture = [[ImageDownloader sharedInstance] downloadPictureDataByImageOrigin:self.dataItem.imageOrigin andWidth:_image.frame.size.width andHeight:_image.frame.size.height];
-        if (picture != nil) {
-            UIImage *tempImage = [UIImage imageWithData:picture];
-            if (tempImage) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [tempImage crossFadeToImageView:_image];
-                });
-            }
-        }
-    });
+    [self downloadImageForView:_image withTempImageName:@"image01.jpg"];
     // Thumbnail
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSData *thumbnail = [[ImageDownloader sharedInstance] downloadPictureDataByImageOrigin:self.dataItem.imageOrigin andWidth:_imageSmall.frame.size.width andHeight:_imageSmall.frame.size.height];
-        if (thumbnail != nil) {
-            UIImage *tempImage = [UIImage imageWithData:thumbnail];
-            if (tempImage) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [tempImage crossFadeToImageView:_imageSmall];
-                });
-            }
-        }
-    });
+    [self downloadImageForView:_imageSmall withTempImageName:@"thumb01.jpg"];
 }
 
 #pragma mark - Private methods
+
+- (void)downloadImageForView:(UIImageView *)imageView withTempImageName:(NSString *)tempImageName
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData *pictureData = [[ImageDownloader sharedInstance] downloadPictureDataByImageOrigin:self.dataItem.imageOrigin andWidth:imageView.frame.size.width andHeight:imageView.frame.size.height];
+        UIImage *tempImage = nil;
+        // Verify data
+        if (pictureData != nil) {
+            tempImage = [UIImage imageWithData:pictureData];
+        } else {
+            tempImage = [UIImage imageNamed:tempImageName];
+        }
+        // Verify picture
+        if (tempImage) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [tempImage crossFadeToImageView:imageView];
+            });
+        }
+    });
+}
 
 + (UIImage *)defaultImage
 {
