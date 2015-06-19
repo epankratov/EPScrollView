@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4404FFF31B34A73800ACE639 /* image01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4404FFF11B34A73800ACE639 /* image01.jpg */; };
+		4404FFF41B34A73800ACE639 /* thumb01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4404FFF21B34A73800ACE639 /* thumb01.jpg */; };
 		442D71671AC9D8EF0002FE72 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 442D71661AC9D8EF0002FE72 /* main.m */; };
 		442D716A1AC9D8EF0002FE72 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 442D71691AC9D8EF0002FE72 /* AppDelegate.m */; };
 		442D716D1AC9D8EF0002FE72 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 442D716C1AC9D8EF0002FE72 /* MainViewController.m */; };
@@ -38,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4404FFF11B34A73800ACE639 /* image01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = image01.jpg; path = Resources/image01.jpg; sourceTree = "<group>"; };
+		4404FFF21B34A73800ACE639 /* thumb01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = thumb01.jpg; path = Resources/thumb01.jpg; sourceTree = "<group>"; };
 		442D71611AC9D8EF0002FE72 /* EPScrollView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EPScrollView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		442D71651AC9D8EF0002FE72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		442D71661AC9D8EF0002FE72 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -171,6 +175,8 @@
 		449768F21AE7AD6F00BD67D6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4404FFF11B34A73800ACE639 /* image01.jpg */,
+				4404FFF21B34A73800ACE639 /* thumb01.jpg */,
 				449768F31AE7AD7B00BD67D6 /* bg.png */,
 				449768F41AE7AD7B00BD67D6 /* bg@2x.png */,
 			);
@@ -294,6 +300,8 @@
 			files = (
 				442D71701AC9D8EF0002FE72 /* Main.storyboard in Resources */,
 				449768F11AE7AC2300BD67D6 /* Default-568h@2x.png in Resources */,
+				4404FFF31B34A73800ACE639 /* image01.jpg in Resources */,
+				4404FFF41B34A73800ACE639 /* thumb01.jpg in Resources */,
 				449768F51AE7AD7B00BD67D6 /* bg.png in Resources */,
 				442D71721AC9D8EF0002FE72 /* Images.xcassets in Resources */,
 				449768F61AE7AD7B00BD67D6 /* bg@2x.png in Resources */,
