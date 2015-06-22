@@ -15,7 +15,10 @@
 + (ImageDownloader *)sharedInstance;
 
 // Quick synchronous download method intended to download data
-- (NSData *)downloadPictureDataWithURL:(NSString *)urlString;
-- (NSData *)downloadPictureDataByImageOrigin:(NSString *)imageOrigin andWidth:(NSInteger)width andHeight:(NSInteger)height;
+- (NSData *)downloadPictureDataWithURL:(NSString *)urlString status:(NSInteger *)statusValue;
+- (NSData *)downloadPictureDataByImageOrigin:(NSString *)imageOrigin
+                                    andWidth:(NSInteger)width
+                                   andHeight:(NSInteger)height
+                                      status:(NSInteger *)statusValue;
 
 @end

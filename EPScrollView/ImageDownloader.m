@@ -11,6 +11,8 @@
 
 static ImageDownloader *_sharedImageDownloader;
 
+NSString *const kStringKey_EmptyCacheValue      = @"empty data";
+
 @interface ImageDownloader () {
     NSCache *_imagesCache;
 }
@@ -43,21 +45,30 @@ static ImageDownloader *_sharedImageDownloader;
     return self;
 }
 
-- (NSData *)downloadPictureDataWithURL:(NSString *)urlString
+- (NSData *)downloadPictureDataWithURL:(NSString *)urlString status:(NSInteger *)statusValue
 {
     NSData *receivedData = nil;
+    *statusValue = 0;
     // Send synchronous GET query with given URL
     if ([_imagesCache objectForKey:urlString]) {
-        VLog(@"DEBUG: object found in cache: %@", urlString);
-        receivedData = [_imagesCache objectForKey:urlString];
+        // Check the cache and its' value
+        if ([[_imagesCache objectForKey:urlString] isKindOfClass:[NSString class]] && [(NSString *)[_imagesCache objectForKey:urlString] isEqualToString:kStringKey_EmptyCacheValue]) {
+        }
+        else {
+//            VLog(@"DEBUG: object found in cache: %@", urlString);
+            receivedData = [_imagesCache objectForKey:urlString];
+        }
     } else {
         NSError *err = nil;
         NSURLResponse *response = nil;
         NSURL *url = [NSURL URLWithString:urlString];
         NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:kNetworkTimeout];
+        // Put temporary object to the cache
+        [_imagesCache setObject:kStringKey_EmptyCacheValue forKey:urlString];
         receivedData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if ([httpResponse statusCode] != 200) {
+            *statusValue = [httpResponse statusCode];
             // Catch an error
             if ([err localizedDescription])
                 VLog(@"DEBUG: URL %@ ; HTTP error: %@", url, [err localizedDescription]);
@@ -65,17 +76,21 @@ static ImageDownloader *_sharedImageDownloader;
                 VLog(@"DEBUG: URL %@ ; HTTP status code: %ld", url, (long)[httpResponse statusCode]);
             }
             receivedData = nil;
+            // Remove any objects from cache
+            [_imagesCache removeObjectForKey:urlString];
         } else {
             [_imagesCache setObject:receivedData forKey:urlString];
-            VLog(@"DEBUG: received picture for URL %@", urlString);
         }
     }
     return receivedData;
 }
 
-- (NSData *)downloadPictureDataByImageOrigin:(NSString *)imageOrigin andWidth:(NSInteger)width andHeight:(NSInteger)height
+- (NSData *)downloadPictureDataByImageOrigin:(NSString *)imageOrigin
+                                    andWidth:(NSInteger)width
+                                   andHeight:(NSInteger)height
+                                      status:(NSInteger *)statusValue
 {
-    return [self downloadPictureDataWithURL:[NSString stringWithFormat:@"http://image.api.viewster.com/movies/%@/image?width=%lu&height=%lu", imageOrigin, (long)width, (long)height]];
+    return [self downloadPictureDataWithURL:[NSString stringWithFormat:@"http://image.api.viewster.com/movies/%@/image?width=%lu&height=%lu", imageOrigin, (long)width, (long)height] status:statusValue];
 }
 
 @end
