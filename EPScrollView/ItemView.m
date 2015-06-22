@@ -142,12 +142,13 @@ const CGFloat kHeightDescriptionLabel  = 20.0;
 - (void)downloadImageForView:(UIImageView *)imageView withTempImageName:(NSString *)tempImageName
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSData *pictureData = [[ImageDownloader sharedInstance] downloadPictureDataByImageOrigin:self.dataItem.imageOrigin andWidth:imageView.frame.size.width andHeight:imageView.frame.size.height];
+        NSInteger status = 0;
+        NSData *pictureData = [[ImageDownloader sharedInstance] downloadPictureDataByImageOrigin:self.dataItem.imageOrigin andWidth:imageView.frame.size.width andHeight:imageView.frame.size.height status:&status];
         UIImage *tempImage = nil;
         // Verify data
         if (pictureData != nil) {
             tempImage = [UIImage imageWithData:pictureData];
-        } else {
+        } else if (status) {
             tempImage = [UIImage imageNamed:tempImageName];
         }
         // Verify picture
