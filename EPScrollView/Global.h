@@ -94,4 +94,9 @@ CG_INLINE BOOL isPhone()
  */
 #define kNetworkTimeout                             30
 
+/**
+ * Global string definitions
+ */
+extern NSString *const kStringKey_EmptyCacheValue;
+
 #endif
