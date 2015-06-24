@@ -14,7 +14,6 @@
 		442D716D1AC9D8EF0002FE72 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 442D716C1AC9D8EF0002FE72 /* MainViewController.m */; };
 		442D71701AC9D8EF0002FE72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 442D716E1AC9D8EF0002FE72 /* Main.storyboard */; };
 		442D71721AC9D8EF0002FE72 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 442D71711AC9D8EF0002FE72 /* Images.xcassets */; };
-		442D71811AC9D8EF0002FE72 /* EPScrollViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 442D71801AC9D8EF0002FE72 /* EPScrollViewTests.m */; };
 		442D718C1AC9D9960002FE72 /* EPScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 442D718B1AC9D9960002FE72 /* EPScrollView.m */; };
 		4438F8741AE918A700864943 /* DataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4438F8731AE918A700864943 /* DataItem.m */; };
 		4438F8771AE918EF00864943 /* DataFabric.m in Sources */ = {isa = PBXBuildFile; fileRef = 4438F8761AE918EF00864943 /* DataFabric.m */; };
@@ -22,22 +21,12 @@
 		449768E91AE7A5EE00BD67D6 /* UIColor+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 449768E81AE7A5EE00BD67D6 /* UIColor+Extra.m */; };
 		449768EE1AE7A61F00BD67D6 /* UILabel+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 449768EB1AE7A61F00BD67D6 /* UILabel+Extra.m */; };
 		449768EF1AE7A61F00BD67D6 /* UIView+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 449768ED1AE7A61F00BD67D6 /* UIView+Extra.m */; };
-		449768F11AE7AC2300BD67D6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 449768F01AE7AC2300BD67D6 /* Default-568h@2x.png */; };
 		449768F51AE7AD7B00BD67D6 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 449768F31AE7AD7B00BD67D6 /* bg.png */; };
 		449768F61AE7AD7B00BD67D6 /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 449768F41AE7AD7B00BD67D6 /* bg@2x.png */; };
 		44ADE06A1AEE502B00E8E7BD /* ImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 44ADE0691AEE502B00E8E7BD /* ImageDownloader.m */; };
 		44ADE06D1AEE526300E8E7BD /* UIImage+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 44ADE06C1AEE526300E8E7BD /* UIImage+Extra.m */; };
+		44D9C4411B3ADF3A00E4F8A9 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44D9C4401B3ADF3A00E4F8A9 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		442D717B1AC9D8EF0002FE72 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 442D71591AC9D8EF0002FE72 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 442D71601AC9D8EF0002FE72;
-			remoteInfo = EPScrollView;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		4404FFF11B34A73800ACE639 /* image01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = image01.jpg; path = Resources/image01.jpg; sourceTree = "<group>"; };
@@ -51,9 +40,6 @@
 		442D716C1AC9D8EF0002FE72 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		442D716F1AC9D8EF0002FE72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		442D71711AC9D8EF0002FE72 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		442D717A1AC9D8EF0002FE72 /* EPScrollViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EPScrollViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		442D717F1AC9D8EF0002FE72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		442D71801AC9D8EF0002FE72 /* EPScrollViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EPScrollViewTests.m; sourceTree = "<group>"; };
 		442D718A1AC9D9960002FE72 /* EPScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPScrollView.h; sourceTree = "<group>"; };
 		442D718B1AC9D9960002FE72 /* EPScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPScrollView.m; sourceTree = "<group>"; };
 		4438F8721AE918A700864943 /* DataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataItem.h; sourceTree = "<group>"; };
@@ -69,24 +55,17 @@
 		449768EB1AE7A61F00BD67D6 /* UILabel+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Extra.m"; sourceTree = "<group>"; };
 		449768EC1AE7A61F00BD67D6 /* UIView+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extra.h"; sourceTree = "<group>"; };
 		449768ED1AE7A61F00BD67D6 /* UIView+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extra.m"; sourceTree = "<group>"; };
-		449768F01AE7AC2300BD67D6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		449768F31AE7AD7B00BD67D6 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bg.png; path = Resources/bg.png; sourceTree = "<group>"; };
 		449768F41AE7AD7B00BD67D6 /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bg@2x.png"; path = "Resources/bg@2x.png"; sourceTree = "<group>"; };
 		44ADE0681AEE502B00E8E7BD /* ImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDownloader.h; sourceTree = "<group>"; };
 		44ADE0691AEE502B00E8E7BD /* ImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDownloader.m; sourceTree = "<group>"; };
 		44ADE06B1AEE526300E8E7BD /* UIImage+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extra.h"; sourceTree = "<group>"; };
 		44ADE06C1AEE526300E8E7BD /* UIImage+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extra.m"; sourceTree = "<group>"; };
+		44D9C4401B3ADF3A00E4F8A9 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		442D715E1AC9D8EF0002FE72 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		442D71771AC9D8EF0002FE72 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -100,7 +79,6 @@
 			isa = PBXGroup;
 			children = (
 				442D71631AC9D8EF0002FE72 /* EPScrollView */,
-				442D717D1AC9D8EF0002FE72 /* EPScrollViewTests */,
 				442D71621AC9D8EF0002FE72 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -109,7 +87,6 @@
 			isa = PBXGroup;
 			children = (
 				442D71611AC9D8EF0002FE72 /* EPScrollView.app */,
-				442D717A1AC9D8EF0002FE72 /* EPScrollViewTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -137,26 +114,9 @@
 			isa = PBXGroup;
 			children = (
 				449768F21AE7AD6F00BD67D6 /* Resources */,
-				449768F01AE7AC2300BD67D6 /* Default-568h@2x.png */,
 				442D71651AC9D8EF0002FE72 /* Info.plist */,
 				442D71661AC9D8EF0002FE72 /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		442D717D1AC9D8EF0002FE72 /* EPScrollViewTests */ = {
-			isa = PBXGroup;
-			children = (
-				442D71801AC9D8EF0002FE72 /* EPScrollViewTests.m */,
-				442D717E1AC9D8EF0002FE72 /* Supporting Files */,
-			);
-			path = EPScrollViewTests;
-			sourceTree = "<group>";
-		};
-		442D717E1AC9D8EF0002FE72 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				442D717F1AC9D8EF0002FE72 /* Info.plist */,
+				44D9C4401B3ADF3A00E4F8A9 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -238,24 +198,6 @@
 			productReference = 442D71611AC9D8EF0002FE72 /* EPScrollView.app */;
 			productType = "com.apple.product-type.application";
 		};
-		442D71791AC9D8EF0002FE72 /* EPScrollViewTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 442D71871AC9D8EF0002FE72 /* Build configuration list for PBXNativeTarget "EPScrollViewTests" */;
-			buildPhases = (
-				442D71761AC9D8EF0002FE72 /* Sources */,
-				442D71771AC9D8EF0002FE72 /* Frameworks */,
-				442D71781AC9D8EF0002FE72 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				442D717C1AC9D8EF0002FE72 /* PBXTargetDependency */,
-			);
-			name = EPScrollViewTests;
-			productName = EPScrollViewTests;
-			productReference = 442D717A1AC9D8EF0002FE72 /* EPScrollViewTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -267,10 +209,6 @@
 				TargetAttributes = {
 					442D71601AC9D8EF0002FE72 = {
 						CreatedOnToolsVersion = 6.2;
-					};
-					442D71791AC9D8EF0002FE72 = {
-						CreatedOnToolsVersion = 6.2;
-						TestTargetID = 442D71601AC9D8EF0002FE72;
 					};
 				};
 			};
@@ -288,7 +226,6 @@
 			projectRoot = "";
 			targets = (
 				442D71601AC9D8EF0002FE72 /* EPScrollView */,
-				442D71791AC9D8EF0002FE72 /* EPScrollViewTests */,
 			);
 		};
 /* End PBXProject section */
@@ -299,19 +236,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				442D71701AC9D8EF0002FE72 /* Main.storyboard in Resources */,
-				449768F11AE7AC2300BD67D6 /* Default-568h@2x.png in Resources */,
 				4404FFF31B34A73800ACE639 /* image01.jpg in Resources */,
 				4404FFF41B34A73800ACE639 /* thumb01.jpg in Resources */,
 				449768F51AE7AD7B00BD67D6 /* bg.png in Resources */,
 				442D71721AC9D8EF0002FE72 /* Images.xcassets in Resources */,
+				44D9C4411B3ADF3A00E4F8A9 /* Default-568h@2x.png in Resources */,
 				449768F61AE7AD7B00BD67D6 /* bg@2x.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		442D71781AC9D8EF0002FE72 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,23 +267,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		442D71761AC9D8EF0002FE72 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				442D71811AC9D8EF0002FE72 /* EPScrollViewTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		442D717C1AC9D8EF0002FE72 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 442D71601AC9D8EF0002FE72 /* EPScrollView */;
-			targetProxy = 442D717B1AC9D8EF0002FE72 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		442D716E1AC9D8EF0002FE72 /* Main.storyboard */ = {
@@ -473,40 +387,6 @@
 			};
 			name = Release;
 		};
-		442D71881AC9D8EF0002FE72 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = EPScrollViewTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EPScrollView.app/EPScrollView";
-			};
-			name = Debug;
-		};
-		442D71891AC9D8EF0002FE72 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = EPScrollViewTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EPScrollView.app/EPScrollView";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -524,15 +404,6 @@
 			buildConfigurations = (
 				442D71851AC9D8EF0002FE72 /* Debug */,
 				442D71861AC9D8EF0002FE72 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		442D71871AC9D8EF0002FE72 /* Build configuration list for PBXNativeTarget "EPScrollViewTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				442D71881AC9D8EF0002FE72 /* Debug */,
-				442D71891AC9D8EF0002FE72 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
