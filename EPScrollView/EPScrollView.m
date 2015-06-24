@@ -22,7 +22,12 @@ const CGFloat _defaultCapacity      = 10;
 
 - (CGFloat)heightForViewAtIndex:(NSInteger)index;
 - (void)initCommon;
-- (void)addViewAtIndex:(NSInteger)index;
+// Add/remove single view
+- (void)addSingleViewWithIndex:(NSInteger)index;
+- (void)removeSingleViewWithIndex:(NSInteger)index;
+// Add/remove whole row
+- (void)addViewsToRowNumber:(NSInteger)number;
+- (void)removeViewsFromRowNumber:(NSInteger)number;
 
 @end
 
@@ -61,26 +66,38 @@ const CGFloat _defaultCapacity      = 10;
     if (self.dataSource) {
         _rowPosition = 0;
         NSUInteger viewsCount = [self.dataSource extendedScrollViewNumberOfItems:self];
+        NSUInteger columnsCount = 1;
+        if ([self.dataSource respondsToSelector:@selector(extendedScrollViewNumberOfColumns:)]) {
+            columnsCount = [self.dataSource extendedScrollViewNumberOfColumns:self] ? : 1;
+        }
         NSUInteger visibleCount = 0;
         NSUInteger totalHeight = 0;
-        // Calculate frames for each individual view and put it to the local storage
+        CGFloat width = self.bounds.size.width / columnsCount;
+        // Calculate and store frames for each individual view
         for (NSUInteger i = 0; i < viewsCount; i++) {
             CGFloat height = [self heightForViewAtIndex:i];
-            CGRect viewFrame = CGRectMake(0, totalHeight, self.bounds.size.width, height);
-            if (totalHeight < self.bounds.size.height)
-                visibleCount++;
+            for (NSUInteger j = 0; j < columnsCount; j++) {
+                CGRect viewFrame = CGRectMake(width * j, totalHeight, width, height);
+                if (totalHeight < self.bounds.size.height) {
+                    visibleCount++;
+                }
+                [_viewsRect addObject:[NSValue valueWithCGRect:viewFrame]];
+                VLog(@"Add item: %lu with frame: %@", (unsigned long) i * columnsCount + j, NSStringFromCGRect(viewFrame));
+            }
             totalHeight += height;
-            [_viewsRect addObject:[NSValue valueWithCGRect:viewFrame]];
+            VLog(@"total height: %lu", (unsigned long) totalHeight);
         }
+
         self.contentSize = CGSizeMake(self.bounds.size.width, totalHeight);
-        // Add only visible views
+        VLog(@"visible count: %lu", (unsigned long) visibleCount);
+        // Add only views to visible row
         for (NSUInteger i = 0; i < visibleCount; i++) {
-            [self addViewAtIndex:i];
+            [self addSingleViewWithIndex:i];
         }
     }
 }
 
-- (CGRect)rectForViewAtIndex:(NSInteger)index
+- (CGRect)rectForViewWithIndex:(NSInteger)index
 {
     CGRect frame = CGRectZero;
     if (index < _viewsRect.count)
@@ -89,7 +106,7 @@ const CGFloat _defaultCapacity      = 10;
 }
 
 // returns nil if cell is not visible or index is out of range
-- (UIView *)itemViewForIndex:(NSInteger)index
+- (UIView *)viewWithIndex:(NSInteger)index
 {
     if ([_visibleViewsIndexes containsObject:[NSNumber numberWithUnsignedLong:index]])
         return [_visibleViews objectForKey:[NSNumber numberWithInteger:index]];
@@ -101,26 +118,24 @@ const CGFloat _defaultCapacity      = 10;
     return [NSArray arrayWithArray:[_visibleViews allValues]];
 }
 
-- (NSArray *)visibleViewsIndexes
-{
-    return _visibleViewsIndexes;
-}
-
 #pragma mark - UIScrollViewDelegate methods
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSInteger lastVisibleIndex  = -1;
-    NSInteger firstVisibleIndex = [self.dataSource extendedScrollViewNumberOfItems:self];
+    NSInteger lastVisibleRowIndex  = -1;
+    NSInteger firstVisibleRowIndex = [self.dataSource extendedScrollViewNumberOfItems:self];
     for (NSInteger i = 0; i < [_visibleViewsIndexes count]; i++) {
         NSInteger value = [[_visibleViewsIndexes objectAtIndex:i] integerValue];
-        if (value < firstVisibleIndex)
-            firstVisibleIndex = value;
-        if (value > lastVisibleIndex)
-            lastVisibleIndex = value;
+        // First is minimal index
+        if (value < firstVisibleRowIndex)
+            firstVisibleRowIndex = value;
+        // Last is maximal index taken from indexes array
+        if (value > lastVisibleRowIndex)
+            lastVisibleRowIndex = value;
     }
-    CGRect lastVisibleFrame  = [self rectForViewAtIndex:lastVisibleIndex];
-    CGRect firstVisibleFrame = [self rectForViewAtIndex:firstVisibleIndex];
+    // Now get the frames
+    CGRect lastVisibleFrame  = [self rectForViewWithIndex:lastVisibleRowIndex];
+    CGRect firstVisibleFrame = [self rectForViewWithIndex:firstVisibleRowIndex];
     NSInteger direction = scrollView.contentOffset.y - _lastContentOffset.y;
     // Check scrolling to bottom
     if (direction > 0)
@@ -128,28 +143,33 @@ const CGFloat _defaultCapacity      = 10;
         // Add new item to the bottom
         if (scrollView.contentOffset.y >= ((lastVisibleFrame.origin.y + lastVisibleFrame.size.height) - self.bounds.size.height)) {
             NSUInteger viewsCount = [self.dataSource extendedScrollViewNumberOfItems:self];
-            if (lastVisibleIndex + 1 < viewsCount) {
-                [self addViewAtIndex:lastVisibleIndex + 1];
+            if (lastVisibleRowIndex + 1 < viewsCount) {
+                [self addViewsToRowNumber:lastVisibleRowIndex + 1];
             }
         }
         // But remove from top
         if (scrollView.contentOffset.y > (firstVisibleFrame.origin.y + firstVisibleFrame.size.height)) {
-            [self removeViewAtIndex:firstVisibleIndex];
+            [self removeViewsFromRowNumber:firstVisibleRowIndex];
         }
     }
     // Check scrolling to top
     else if (direction < 0 && scrollView.contentOffset.y >= 0)
     {
-        // Add again items to the top
-        if (scrollView.contentOffset.y <= (firstVisibleFrame.origin.y + firstVisibleFrame.size.height) && firstVisibleIndex > 0) {
-            [self addViewAtIndex:firstVisibleIndex - 1];
-        }
-        // But remove from the bottom
-        NSInteger prevVisibleIndex = lastVisibleIndex - 1;
-        if (prevVisibleIndex) {
-            CGRect prevVisibleFrame = [self rectForViewAtIndex:prevVisibleIndex];
-            if (scrollView.contentOffset.y < ((prevVisibleFrame.origin.y + prevVisibleFrame.size.height) - self.bounds.size.height)) {
-                [self removeViewAtIndex:lastVisibleIndex];
+        if (scrollView.contentOffset.y == 0) {
+            // We need to reload data when scoller returns to initial position too fast
+            [self reloadData];
+        } else {
+            // Add again items to the top
+            if (scrollView.contentOffset.y <= (firstVisibleFrame.origin.y + firstVisibleFrame.size.height) && firstVisibleRowIndex > 0) {
+                [self addViewsToRowNumber:firstVisibleRowIndex - 1];
+            }
+            // But remove from the bottom
+            NSInteger prevVisibleRowIndex = lastVisibleRowIndex - 1;
+            if (prevVisibleRowIndex) {
+                CGRect prevVisibleFrame = [self rectForViewWithIndex:prevVisibleRowIndex];
+                if (scrollView.contentOffset.y < ((prevVisibleFrame.origin.y + prevVisibleFrame.size.height) - self.bounds.size.height)) {
+                    [self removeViewsFromRowNumber:lastVisibleRowIndex];
+                }
             }
         }
     }
@@ -191,25 +211,51 @@ const CGFloat _defaultCapacity      = 10;
     [super setDelegate:self];
 }
 
-- (void)addViewAtIndex:(NSInteger)index
+#pragma mark Single view operations
+
+- (void)addSingleViewWithIndex:(NSInteger)index
 {
     NSNumber *nIndex = [NSNumber numberWithUnsignedLong:index];
     if ([_visibleViewsIndexes containsObject:nIndex]) {
         return;
     }
     UIView *viewToAdd = [self.dataSource extendedScrollView:self viewForItem:index];
-    [viewToAdd setFrame:[self rectForViewAtIndex:index]];
+    [viewToAdd setFrame:[self rectForViewWithIndex:index]];
     [self addSubview:viewToAdd];
     [_visibleViewsIndexes addObject:nIndex];
     [_visibleViews setObject:viewToAdd forKey:nIndex];
 }
 
-- (void)removeViewAtIndex:(NSInteger)index
+- (void)removeSingleViewWithIndex:(NSInteger)index
 {
-    UIView *viewToRemove = [self itemViewForIndex:index];
+    UIView *viewToRemove = [self viewWithIndex:index];
     [viewToRemove removeFromSuperview];
     [_visibleViewsIndexes removeObject:[NSNumber numberWithUnsignedLong:index]];
     [_visibleViews removeObjectsForKeys:[NSArray arrayWithObject:[NSNumber numberWithInteger:index]]];
+}
+
+#pragma mark Row operations
+
+- (void)addViewsToRowNumber:(NSInteger)number
+{
+    NSUInteger columnsCount = 1;
+    if (self.dataSource && [self.dataSource respondsToSelector:@selector(extendedScrollViewNumberOfColumns:)]) {
+        columnsCount = [self.dataSource extendedScrollViewNumberOfColumns:self];
+    }
+    for (NSInteger i = 0; i < columnsCount; i++) {
+        [self addSingleViewWithIndex:number + i];
+    }
+}
+
+- (void)removeViewsFromRowNumber:(NSInteger)number
+{
+    NSUInteger columnsCount = 1;
+    if (self.dataSource && [self.dataSource respondsToSelector:@selector(extendedScrollViewNumberOfColumns:)]) {
+        columnsCount = [self.dataSource extendedScrollViewNumberOfColumns:self];
+    }
+    for (NSInteger i = 0; i < columnsCount; i++) {
+        [self removeSingleViewWithIndex:number + i];
+    }
 }
 
 @end

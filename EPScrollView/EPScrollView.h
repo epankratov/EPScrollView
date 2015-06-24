@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @protocol EPScrollViewDataSource;
-@protocol EPScrollViewDataSource;
 
 @interface EPScrollView : UIScrollView <UIScrollViewDelegate> {
 
@@ -21,11 +20,10 @@
 - (id)initWithFrame:(CGRect)frame;
 - (id)initWithCoder:(NSCoder *)aDecoder;
 - (void)reloadData;
-- (CGRect)rectForViewAtIndex:(NSInteger)index;
+- (CGRect)rectForViewWithIndex:(NSInteger)index;
 // returns nil if cell is not visible or index path is out of range
-- (UIView *)itemViewForIndex:(NSInteger)index;
+- (UIView *)viewWithIndex:(NSInteger)index;
 - (NSArray *)visibleViews;
-- (NSArray *)visibleViewsIndexes;
 
 @end
 
