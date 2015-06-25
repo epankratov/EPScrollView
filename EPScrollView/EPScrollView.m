@@ -118,6 +118,34 @@ const CGFloat _defaultCapacity      = 10;
     return [NSArray arrayWithArray:[_visibleViews allValues]];
 }
 
+- (NSInteger)firstVisible
+{
+    if ([_visibleViewsIndexes count] == 0)
+        return 0;
+    NSInteger firstVisibleItem = NSIntegerMax;
+    for (NSInteger i = 0; i < [_visibleViewsIndexes count]; i++) {
+        NSInteger value = [[_visibleViewsIndexes objectAtIndex:i] integerValue];
+        // First is minimal index
+        if (value < firstVisibleItem)
+            firstVisibleItem = value;
+    }
+    return firstVisibleItem;
+}
+
+- (NSInteger)lastVisible
+{
+    if ([_visibleViewsIndexes count] == 0)
+        return 0;
+    NSInteger lastVisibleItem  = -1;
+    for (NSInteger i = 0; i < [_visibleViewsIndexes count]; i++) {
+        NSInteger value = [[_visibleViewsIndexes objectAtIndex:i] integerValue];
+        // Last is maximal index taken from indexes array
+        if (value > lastVisibleItem)
+            lastVisibleItem = value;
+    }
+    return lastVisibleItem;
+}
+
 #pragma mark - UIScrollViewDelegate methods
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

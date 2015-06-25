@@ -26,6 +26,8 @@
 // returns nil if cell is not visible or index path is out of range
 - (UIView *)viewWithIndex:(NSInteger)index;
 - (NSArray *)visibleViews;
+- (NSInteger)firstVisible;
+- (NSInteger)lastVisible;
 
 @end
 

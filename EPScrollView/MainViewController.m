@@ -145,12 +145,12 @@
 
 - (void)extendedScrollViewDidScrollForward:(EPScrollView *)scrollView
 {
-    VLog(@"Scroll view has scrolled forward");
+    VLog(@"Scroll view has scrolled forward: first item is %ld; last item it %ld", (long)[scrollView firstVisible], (long)[scrollView lastVisible]);
 }
 
 - (void)extendedScrollViewDidScrollBackward:(EPScrollView *)scrollView
 {
-    VLog(@"Scroll view has scrolled backward");
+    VLog(@"Scroll view has scrolled backward: first item is %ld; last item it %ld", (long)[scrollView firstVisible], (long)[scrollView lastVisible]);
 }
 
 @end
