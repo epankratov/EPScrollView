@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @protocol EPScrollViewDataSource;
+@protocol EPScrollViewDelegate;
 
 @interface EPScrollView : UIScrollView <UIScrollViewDelegate> {
 
 }
 
-@property (nonatomic, assign) id <EPScrollViewDataSource> dataSource;
+@property (nonatomic, weak) id <EPScrollViewDataSource> dataSource;
+@property (nonatomic, weak) id <EPScrollViewDelegate> scrollDelegate;
 @property (nonatomic) CGFloat itemHeight;
 
 - (id)initWithFrame:(CGRect)frame;
@@ -38,5 +40,14 @@
 
 - (NSUInteger)extendedScrollViewNumberOfColumns:(EPScrollView *)scrollView;
 - (NSUInteger)extendedScrollView:(EPScrollView *)scrollView heightForItem:(NSInteger)index;
+
+@end
+
+@protocol EPScrollViewDelegate <NSObject>
+
+@optional
+
+- (void)extendedScrollViewDidScrollForward:(EPScrollView *)scrollView;
+- (void)extendedScrollViewDidScrollBackward:(EPScrollView *)scrollView;
 
 @end

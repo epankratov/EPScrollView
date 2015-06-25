@@ -152,6 +152,9 @@ const CGFloat _defaultCapacity      = 10;
         if (scrollView.contentOffset.y > (firstVisibleFrame.origin.y + firstVisibleFrame.size.height)) {
             [self removeViewsFromRowStartingWithNumber:firstVisibleItem];
             _rowPosition++;
+            if (self.scrollDelegate && [self.scrollDelegate respondsToSelector:@selector(extendedScrollViewDidScrollForward:)]) {
+                [self.scrollDelegate extendedScrollViewDidScrollForward:self];
+            }
         }
     }
     // Check scrolling to top
@@ -165,6 +168,9 @@ const CGFloat _defaultCapacity      = 10;
             if (scrollView.contentOffset.y <= (firstVisibleFrame.origin.y + firstVisibleFrame.size.height) && firstVisibleItem - columnsCount >= 0) {
                 [self addViewsToRowStartingWithNumber:firstVisibleItem - columnsCount];
                 _rowPosition--;
+                if (self.scrollDelegate && [self.scrollDelegate respondsToSelector:@selector(extendedScrollViewDidScrollBackward:)]) {
+                    [self.scrollDelegate extendedScrollViewDidScrollBackward:self];
+                }
             }
             // But remove from the bottom
             NSInteger prevVisibleRowIndex = lastVisibleItem - columnsCount;
@@ -177,7 +183,6 @@ const CGFloat _defaultCapacity      = 10;
         }
     }
     _lastContentOffset = scrollView.contentOffset;
-//    VLog(@"DEBUG: row position is: %ld", _rowPosition + 1);
 }
 
 - (void)scrollViewWillEndDraggingOld:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
