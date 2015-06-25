@@ -10,7 +10,7 @@
 #import "EPScrollView.h"
 #import "ItemView.h"
 
-@interface MainViewController : UIViewController <EPScrollViewDataSource> {
+@interface MainViewController : UIViewController <EPScrollViewDataSource, EPScrollViewDelegate> {
 
 }
 

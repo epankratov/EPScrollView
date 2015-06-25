@@ -63,6 +63,7 @@
 
     // Do any additional setup after loading the view, typically from a nib.
     [self.scrollView setDataSource:self];
+    [self.scrollView setScrollDelegate:self];
     [self.scrollView reloadData];
 }
 
@@ -138,6 +139,18 @@
     DataItem *item = [[[DataFabric sharedInstance] availabelItems] objectAtIndex:index];
     ItemView *view = [[ItemView alloc] initWithDataItem:item];
     return view;
+}
+
+#pragma mark - EPScrollViewDelegate methods
+
+- (void)extendedScrollViewDidScrollForward:(EPScrollView *)scrollView
+{
+    VLog(@"Scroll view has scrolled forward");
+}
+
+- (void)extendedScrollViewDidScrollBackward:(EPScrollView *)scrollView
+{
+    VLog(@"Scroll view has scrolled backward");
 }
 
 @end
