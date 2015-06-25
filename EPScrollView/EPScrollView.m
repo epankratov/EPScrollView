@@ -97,6 +97,38 @@ const CGFloat _defaultCapacity      = 10;
     }
 }
 
+- (void)updateData
+{
+    // Cleanup internal data
+    [_viewsRect removeAllObjects];
+    // Proceed only with valid datasource
+    if (self.dataSource) {
+        NSUInteger viewsCount = [self.dataSource extendedScrollViewNumberOfItems:self];
+        NSUInteger columnsCount = [self columnsCount];
+        NSUInteger visibleCount = 0;
+        NSUInteger totalHeight = 0;
+        NSUInteger currentColumn = 0;
+        CGFloat width = self.bounds.size.width / columnsCount;
+        // Calculate and store frames for each individual view
+        for (NSUInteger i = 0; i < viewsCount; i++) {
+            CGFloat height = [self heightForViewAtIndex:i];
+            CGRect viewFrame = CGRectMake(width * currentColumn, totalHeight, width, height);
+            if (totalHeight < self.bounds.size.height) {
+                visibleCount++;
+            }
+            [_viewsRect addObject:[NSValue valueWithCGRect:viewFrame]];
+            if (++currentColumn == columnsCount) {
+                totalHeight += height;
+                currentColumn = 0;
+            } else if (i + 1 == viewsCount) {
+                totalHeight += height;
+            }
+        }
+        
+        self.contentSize = CGSizeMake(self.bounds.size.width, totalHeight);
+    }
+}
+
 - (CGRect)rectForViewWithIndex:(NSInteger)index
 {
     CGRect frame = CGRectZero;

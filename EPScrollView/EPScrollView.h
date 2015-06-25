@@ -22,6 +22,7 @@
 - (id)initWithFrame:(CGRect)frame;
 - (id)initWithCoder:(NSCoder *)aDecoder;
 - (void)reloadData;
+- (void)updateData;
 - (CGRect)rectForViewWithIndex:(NSInteger)index;
 // returns nil if cell is not visible or index path is out of range
 - (UIView *)viewWithIndex:(NSInteger)index;
