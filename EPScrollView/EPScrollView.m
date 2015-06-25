@@ -146,12 +146,12 @@ const CGFloat _defaultCapacity      = 10;
             NSUInteger viewsCount = [self.dataSource extendedScrollViewNumberOfItems:self];
             if (lastVisibleItem + 1 < viewsCount) {
                 [self addViewsToRowStartingWithNumber:lastVisibleItem + 1];
-                _rowPosition++;
             }
         }
         // But remove from top
         if (scrollView.contentOffset.y > (firstVisibleFrame.origin.y + firstVisibleFrame.size.height)) {
             [self removeViewsFromRowStartingWithNumber:firstVisibleItem];
+            _rowPosition++;
         }
     }
     // Check scrolling to top
@@ -177,7 +177,7 @@ const CGFloat _defaultCapacity      = 10;
         }
     }
     _lastContentOffset = scrollView.contentOffset;
-    VLog(@"DEBUG: row position is: %ld", _rowPosition);    
+//    VLog(@"DEBUG: row position is: %ld", _rowPosition + 1);
 }
 
 - (void)scrollViewWillEndDraggingOld:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
@@ -192,17 +192,19 @@ const CGFloat _defaultCapacity      = 10;
     targetContentOffset->y = targetIndex * _defaultItemHeight;
 }
 
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+- (void)scrollViewWillEndDraggingNew:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
-//    CGFloat targetIndex = _rowPosition;
-//    if (velocity.y > 0) {
-//        targetIndex++;
-//    } else if (velocity.y < 0) {
-//        targetIndex--;
-//    }
-//    CGFloat targetHeight = [self rectForViewWithIndex:(int)targetIndex].origin.y;
-//    VLog(@"content offset: %f, velocity: %f; targetY: %f; index %f", scrollView.contentOffset.y, velocity.y * 60.0, targetY, targetIndex);
-//    targetContentOffset->y = targetHeight;
+    NSInteger columnsCount = [self columnsCount];
+    NSInteger targetViewIndex = _rowPosition * columnsCount;
+    CGFloat realVelocity = velocity.y * 60.0;
+    if (realVelocity > 0) {
+        targetViewIndex += columnsCount;
+    } else if (realVelocity < 0) {
+        targetViewIndex -= columnsCount;
+    }
+    CGFloat targetHeight = [self rectForViewWithIndex:(int)targetViewIndex].origin.y;
+    VLog(@"content offset: %f, velocity: %f; targetY: %f; (%ld) index from %ld to %ld", scrollView.contentOffset.y, realVelocity, targetHeight, (long) _rowPosition, (long) _rowPosition * columnsCount, (long) targetViewIndex);
+    targetContentOffset->y = targetHeight;
 }
 
 #pragma mark - Private methods
