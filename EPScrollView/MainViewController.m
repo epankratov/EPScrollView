@@ -71,10 +71,34 @@
     [self.scrollView setFrame:self.view.bounds];
 }
 
+#pragma mark - Rotation support
+
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    NSUInteger orientation = isPad() ? UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown : UIInterfaceOrientationMaskPortrait;
+    return orientation;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
+}
+
+#pragma mark - Memory management
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc
+{
 }
 
 #pragma mark - User interactions
@@ -100,7 +124,8 @@
 
 - (NSUInteger)extendedScrollView:(EPScrollView *)scrollView heightForItem:(NSInteger)index
 {
-    return isPad() ? 400 : 380;//380 + index * 10;
+    // For instance, we could use different heights for each item, something like this: 380 + index * 10
+    return isPad() ? 400 : 380;
 }
 
 - (NSUInteger)extendedScrollViewNumberOfColumns:(EPScrollView *)scrollView
