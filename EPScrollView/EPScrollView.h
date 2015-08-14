@@ -50,6 +50,8 @@
 
 @optional
 
+- (void)extendedScrollViewDidBeginScroll:(EPScrollView *)scrollView;
+- (void)extendedScrollViewDidEndScroll:(EPScrollView *)scrollView;
 - (void)extendedScrollViewDidScrollForward:(EPScrollView *)scrollView;
 - (void)extendedScrollViewDidScrollBackward:(EPScrollView *)scrollView;
 

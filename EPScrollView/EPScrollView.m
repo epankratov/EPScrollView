@@ -222,6 +222,7 @@ const CGFloat _defaultCapacity      = 10;
     {
         if (scrollView.contentOffset.y == 0) {
             // We need to reload data when scoller returns to initial position too fast
+            firstVisibleItem = 0;
             [self reloadData];
         } else {
             // Add again items to the top
@@ -245,6 +246,40 @@ const CGFloat _defaultCapacity      = 10;
     _lastContentOffset = scrollView.contentOffset;
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    if (self.scrollDelegate && [self.scrollDelegate respondsToSelector:@selector(extendedScrollViewDidBeginScroll:)]) {
+        [self.scrollDelegate extendedScrollViewDidBeginScroll:self];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if (self.scrollDelegate && [self.scrollDelegate respondsToSelector:@selector(extendedScrollViewDidEndScroll:)]) {
+        [self.scrollDelegate extendedScrollViewDidEndScroll:self];
+    }
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    NSInteger columnsCount = [self columnsCount];
+    NSInteger targetViewIndex = _rowPosition * columnsCount;
+    CGFloat realVelocity = velocity.y * 60.0;
+    if (realVelocity > 0) {
+        NSInteger multiplier = 1;
+        if (realVelocity > 100)
+            multiplier = 2;
+        columnsCount *= multiplier;
+        targetViewIndex += columnsCount;
+    } else if (realVelocity < 0) {
+        if (isPhone())
+            targetViewIndex = [self lastVisible] - 1;
+        targetViewIndex -= columnsCount;
+    }
+    CGFloat targetHeight = [self rectForViewWithIndex:(int)targetViewIndex].origin.y;
+    targetContentOffset->y = targetHeight;
+}
+
 - (void)scrollViewWillEndDraggingOld:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
     CGFloat targetY = scrollView.contentOffset.y + velocity.y * 60.0;
@@ -255,21 +290,6 @@ const CGFloat _defaultCapacity      = 10;
         targetIndex = floor(targetY / _defaultItemHeight);
     }
     targetContentOffset->y = targetIndex * _defaultItemHeight;
-}
-
-- (void)scrollViewWillEndDraggingNew:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
-{
-    NSInteger columnsCount = [self columnsCount];
-    NSInteger targetViewIndex = _rowPosition * columnsCount;
-    CGFloat realVelocity = velocity.y * 60.0;
-    if (realVelocity > 0) {
-        targetViewIndex += columnsCount;
-    } else if (realVelocity < 0) {
-        targetViewIndex -= columnsCount;
-    }
-    CGFloat targetHeight = [self rectForViewWithIndex:(int)targetViewIndex].origin.y;
-    VLog(@"content offset: %f, velocity: %f; targetY: %f; (%ld) index from %ld to %ld", scrollView.contentOffset.y, realVelocity, targetHeight, (long) _rowPosition, (long) _rowPosition * columnsCount, (long) targetViewIndex);
-    targetContentOffset->y = targetHeight;
 }
 
 #pragma mark - Private methods
