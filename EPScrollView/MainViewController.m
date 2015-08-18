@@ -143,14 +143,24 @@
 
 #pragma mark - EPScrollViewDelegate methods
 
+- (void)extendedScrollViewDidBeginScroll:(EPScrollView *)scrollView
+{
+    VLog(@"Scroll view will scroll from position %ld", (long)[scrollView rowPosition]);
+}
+
+- (void)extendedScrollViewDidEndScroll:(EPScrollView *)scrollView
+{
+    VLog(@"Scroll view did scroll to position %ld", (long)[scrollView rowPosition]);
+}
+
 - (void)extendedScrollViewDidScrollForward:(EPScrollView *)scrollView
 {
-    VLog(@"Scroll view has scrolled forward: first item is %ld; last item it %ld", (long)[scrollView firstVisible], (long)[scrollView lastVisible]);
+    VLog(@"Scroll view has scrolled forward: first item is %ld; last is %ld; current %ld", (long)[scrollView firstVisible], (long)[scrollView lastVisible], (long)[scrollView rowPosition]);
 }
 
 - (void)extendedScrollViewDidScrollBackward:(EPScrollView *)scrollView
 {
-    VLog(@"Scroll view has scrolled backward: first item is %ld; last item it %ld", (long)[scrollView firstVisible], (long)[scrollView lastVisible]);
+    VLog(@"Scroll view has scrolled backward: first is %ld; last item is %ld; current %ld", (long)[scrollView firstVisible], (long)[scrollView lastVisible], (long)[scrollView rowPosition]);
 }
 
 @end
