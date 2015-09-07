@@ -29,6 +29,7 @@
 - (NSArray *)visibleViews;
 - (NSInteger)firstVisible;
 - (NSInteger)lastVisible;
+- (NSInteger)rowPosition;
 
 @end
 
