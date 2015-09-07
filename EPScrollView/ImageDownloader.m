@@ -70,8 +70,10 @@ NSString *const kStringKey_EmptyCacheValue      = @"empty data";
         if ([httpResponse statusCode] != 200) {
             *statusValue = [httpResponse statusCode];
             // Catch an error
-            if ([err localizedDescription])
+            if ([err localizedDescription]) {
+                *statusValue = 1;
                 VLog(@"DEBUG: URL %@ ; HTTP error: %@", url, [err localizedDescription]);
+            }
             else {
                 VLog(@"DEBUG: URL %@ ; HTTP status code: %ld", url, (long)[httpResponse statusCode]);
             }
