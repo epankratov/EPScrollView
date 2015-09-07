@@ -145,12 +145,12 @@
 
 - (void)extendedScrollViewDidBeginScroll:(EPScrollView *)scrollView
 {
-    VLog(@"Scroll view will scroll from position %ld", (long)[scrollView rowPosition]);
+    VLog(@"Scroll view will scroll from row #%ld", (long)[scrollView rowPosition]);
 }
 
 - (void)extendedScrollViewDidEndScroll:(EPScrollView *)scrollView
 {
-    VLog(@"Scroll view did scroll to position %ld", (long)[scrollView rowPosition]);
+    VLog(@"Scroll view did scroll to row #%ld", (long)[scrollView rowPosition]);
 }
 
 - (void)extendedScrollViewDidScrollForward:(EPScrollView *)scrollView
