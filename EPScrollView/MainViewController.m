@@ -46,7 +46,7 @@
                                                [UIColor navigationButtonsColor], UITextAttributeTextShadowColor,
                                                [NSValue valueWithUIOffset:UIOffsetMake(0, 1)], UITextAttributeTextShadowOffset, nil];
     [self.navigationController.navigationBar setTitleTextAttributes:navbarTitleTextAttributes];
-    [[UINavigationBar appearance] setTranslucent:NO];
+    [self.navigationController.navigationBar setTranslucent:NO];
     if ([self.navigationController.navigationBar respondsToSelector:@selector(setBarTintColor:)]) {
         [self.navigationController.navigationBar setBarTintColor:[UIColor navigationBarTintColor]];
     }
@@ -79,7 +79,7 @@
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     NSUInteger orientation = isPad() ? UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown : UIInterfaceOrientationMaskPortrait;
     return orientation;
