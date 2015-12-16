@@ -216,16 +216,12 @@ const CGFloat _defaultCapacity      = 10;
             }
             // But remove hidden items from the bottom
             NSInteger deleteFromItemNumber = lastVisibleItem - columnsCount + 1;
-            if (deleteFromItemNumber >= 0
-//                &&
-//                [_visibleViewsIndexes containsObject:[NSNumber numberWithInteger:deleteFromItemNumber]]
-                )
+            if (deleteFromItemNumber >= 0)
             {
                 CGRect deleteItemWithFrame = [self rectForViewWithIndex:deleteFromItemNumber];
                 if (scrollView.contentOffset.y  < (deleteItemWithFrame.origin.y - self.bounds.size.height)) {
                     [self removeViewsFromRowStartingWithNumber:deleteFromItemNumber];
                     _rowPosition--;
-//                    NSLog(@"UPDATED (by reduce) row position %ld; last %ld", (long)_rowPosition, (long)lastVisibleItem);
                     if (self.scrollDelegate && [self.scrollDelegate respondsToSelector:@selector(extendedScrollViewDidScrollBackward:)]) {
                         [self.scrollDelegate extendedScrollViewDidScrollBackward:self];
                     }
@@ -269,7 +265,6 @@ const CGFloat _defaultCapacity      = 10;
     else if (realVelocity < 0) {
         if (isPhone())
             targetViewIndex = [self lastVisible] - 1;
-        NSLog(@"decrease target index from %ld to %ld", (long)targetViewIndex, (long)targetViewIndex - columnsCount);
         targetViewIndex -= columnsCount;
     }
     CGFloat targetHeight = [self rectForViewWithIndex:(int)targetViewIndex].origin.y;
@@ -326,9 +321,11 @@ const CGFloat _defaultCapacity      = 10;
     [_visibleViewsIndexes addObject:nIndex];
     // Sort indexes, so we have always ascending order
     [_visibleViewsIndexes sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        if (obj1 < obj2)
+        NSNumber *a = obj1;
+        NSNumber *b = obj2;
+        if ([a integerValue] < [b integerValue])
             return NSOrderedAscending;
-        if (obj1 > obj2)
+        if ([a integerValue] > [b integerValue])
             return NSOrderedDescending;
         return NSOrderedSame;
     }];
