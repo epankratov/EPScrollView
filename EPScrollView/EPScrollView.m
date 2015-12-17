@@ -60,13 +60,13 @@ const CGFloat _defaultCapacity      = 10;
     // Set initial scroll position
     [self setContentOffset:CGPointZero];
     _lastContentOffset = CGPointMake(0, 0);
+    _rowPosition = 0;
     // Cleanup internal data
     [_viewsRect removeAllObjects];
     [_visibleViews removeAllObjects];
     [_visibleViewsIndexes removeAllObjects];
     // Proceed only with valid datasource
     if (self.dataSource) {
-        _rowPosition = 0;
         NSUInteger viewsCount = [self.dataSource extendedScrollViewNumberOfItems:self];
         NSUInteger columnsCount = [self columnsCount];
         NSUInteger visibleCount = 0;
@@ -95,6 +95,8 @@ const CGFloat _defaultCapacity      = 10;
             [self addSingleViewWithIndex:i];
         }
     }
+    if ([self.scrollDelegate respondsToSelector:@selector(extendedScrollViewDidReloadData:)])
+        [self.scrollDelegate extendedScrollViewDidReloadData:self];
 }
 
 - (void)updateData
